@@ -28,6 +28,12 @@ useEffect(() => {
       setTheme(savedTheme);
     }
   }
+
+  const savedCart = ls.getItem('cart');
+  if(savedCart) {
+    setCartProducts(JSON.parse(savedCart));
+  }
+
 },[]);
 
 const toggleTheme = () => {

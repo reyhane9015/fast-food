@@ -45,7 +45,7 @@ export default function CartPage() {
 
 
 
-    // console.log("cart cartProduct" , cartProducts);
+    console.log("cart cartProduct" , cartProducts);
 
     
     let total = 0;
