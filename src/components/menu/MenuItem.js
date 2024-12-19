@@ -180,13 +180,13 @@ function MenuItem(menuItem) {
 
             
               <FlyingButton src='/pizza.png' targetTop={'5%'} targetLeft={'80%'}>
-                <button 
+                <div 
                   onClick={handleAddToCart}
                   type="button"
                   className="mx-auto mt-4 bg-primary text-white rounded-full py-4 px-2 sticky bottom-2"
                 >
                   Add to cart {selectedPrice}$
-                </button>
+                </div>
               </FlyingButton>
              
 

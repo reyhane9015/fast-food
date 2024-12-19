@@ -12,6 +12,8 @@ import  Delete from '@/components/icons/Delete';
 
 import ButtonSecondery from '@/components/layout/ButtonSecondery';
 import ButtonPrimary from '@/components/layout/ButtonPrimary';
+import { toast } from 'react-hot-toast';
+
 
 
 export default function CartPage() {
@@ -251,7 +253,11 @@ export default function CartPage() {
                                             
 
                                                 <td className="py-5 text-center">
-                                                    <button type="button" className="hover:text-primary" onClick={() => removeCartProduct(index)}>
+                                                    <button type="button" className="hover:text-primary" onClick={() => {
+                                                        removeCartProduct(index); 
+                                                        toast.success(`${cartProducts[index].name} removed from the cart`)}}
+                                                    >
+                                                    
                                                         <Delete />
                                                     </button>
                                                 </td>
