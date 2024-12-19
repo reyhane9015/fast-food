@@ -18,7 +18,7 @@ import { toast } from 'react-hot-toast';
 
 export default function CartPage() {
 
-    const {cartProducts , removeCartProduct , cartProductPrice , clearCart} = useContext(CartContext);
+    const {cartProducts , removeCartProduct , cartProductPrice ,updateCartProduct , clearCart} = useContext(CartContext);
 
 
     const session = useSession();
@@ -54,6 +54,35 @@ export default function CartPage() {
     for (const p of cartProducts) {
         total += cartProductPrice(p);
     }
+
+
+
+    const handleDecreaseQuantity = (product) => {
+        if(product.quantity > 1) {
+            const updatedProduct = {...product , quantity: product.quantity - 1};
+            updateProductQuantity(updatedProduct);
+        }
+    }
+
+
+    const handleIncreaseQuantity = (product) => {
+        const updatedProduct = {...product , quantity: product.quantity + 1};
+        updateProductQuantity(updatedProduct);
+    }
+
+    const updateProductQuantity = (updatedProduct) => {
+        // Assuming you have a function in context like updateCartProduct
+        updateCartProduct(updatedProduct);
+    };
+
+    const handleQuantityChange = (product , newQuantity) => {
+        const parsedQuantity = parseInt(newQuantity, 10);
+        if(!isNaN(parsedQuantity) && parsedQuantity > 0) {
+            const updatedProduct = {...product , quantity: parsedQuantity};
+            updateProductQuantity(updatedProduct);
+        }
+    };
+
 
    
 
@@ -238,7 +267,40 @@ export default function CartPage() {
                                                 </td>
 
 
-                                                <td className="font-semibold text-primary text-xl px-5 py-5 text-center">{product.quantity}</td>
+                                                {/* <td className="font-semibold text-primary text-xl px-5 py-5 text-center">
+                                                    {product.quantity}
+                                                </td> */}
+
+                                                <td className="font-semibold text-primary text-xl px-5 py-5 text-center">
+                                                    <div className="flex items-center justify-center space-x-2">
+
+                                                    <button 
+                                                        type="button" 
+                                                        className="text-xl px-2 py-1 bg-gray-200 rounded-full hover:bg-primary hover:text-white"
+                                                        onClick={() => handleDecreaseQuantity(product)}
+                                                    >
+                                                        -
+                                                    </button>
+
+
+                                                    <input type="number" 
+                                                        className="w-12 text-center border border-gray-300 rounded-md appearance-none
+                                                        [&::-webkit-inner-spin-button]:hidden [&::-webkit-outer-spin-button]:hidden" 
+                                                        value={product.quantity} 
+                                                        onChange={() => handleQuantityChange(product , e.target.value)} 
+                                                    />
+
+
+                                                    <button 
+                                                        type="button" 
+                                                        className="text-xl px-2 py-1 bg-gray-200 rounded-full hover:bg-primary hover:text-white"
+                                                        onClick={() => handleIncreaseQuantity(product)}
+                                                    >
+                                                        +
+                                                    </button>
+
+                                                    </div>
+                                                </td>
 
 
 

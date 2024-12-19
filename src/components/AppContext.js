@@ -119,6 +119,14 @@ const removeCartProduct = (indexToRemove) => {
 
 }
 
+const updateCartProduct = (updatedProduct) => {
+  setCartProducts(prevProducts => 
+    prevProducts.map((product) => 
+      product.id === updatedProduct.id ? updatedProduct : product
+    )
+  )
+}
+
 
 const cartProductPrice = (cartProduct) => {
   let price = cartProduct.basePrice;
@@ -154,7 +162,7 @@ const cartProductsCount = () => {
 }
 
 
-const value = {cartProducts ,setCartProducts , isItemAdded, cartProductsCount ,addToCart ,clearCart  ,removeCartProduct ,cartProductPrice ,theme , toggleTheme };
+const value = {cartProducts ,setCartProducts , isItemAdded, cartProductsCount ,addToCart ,clearCart  ,removeCartProduct ,updateCartProduct , cartProductPrice ,theme , toggleTheme };
 
 
 
