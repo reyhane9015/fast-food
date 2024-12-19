@@ -5,14 +5,28 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
+      colors: {
+         primary: '#f13a01',
+         secondery: '#f75b2b',
+         third: '#f8d617',
+         fourth: '#ffbba6',
+         light: {
+            background: '#FFFFFF',
+            SBackground: '#f8f8f8',
+            text: '#000000',
+          },
+          dark: {
+            background: '#1A1A2E',
+            SBackground: '#0f0f1b',
+            text: '#FFFFFF',
+          },
+       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+  ],
 }
