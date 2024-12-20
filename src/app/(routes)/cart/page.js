@@ -18,7 +18,7 @@ import { toast } from 'react-hot-toast';
 
 export default function CartPage() {
 
-    const {cartProducts , removeCartProduct , cartProductPrice ,updateCartProduct , clearCart} = useContext(CartContext);
+    const {cartProducts , removeCartProduct , cartProductPrice ,updateCartProducts, generateProductKey , clearCart} = useContext(CartContext);
 
 
     const session = useSession();
@@ -47,7 +47,7 @@ export default function CartPage() {
 
 
 
-    console.log("cart cartProduct" , cartProducts);
+    // console.log("cart cartProduct" , cartProducts);
 
     
     let total = 0;
@@ -56,32 +56,26 @@ export default function CartPage() {
     }
 
 
-
     const handleDecreaseQuantity = (product) => {
         if(product.quantity > 1) {
-            const updatedProduct = {...product , quantity: product.quantity - 1};
-            updateProductQuantity(updatedProduct);
+            const updatedProduct = {...product, quantity: product.quantity - 1};
+            updateCartProducts(updatedProduct, updatedProduct.quantity);
         }
     }
-
 
     const handleIncreaseQuantity = (product) => {
-        const updatedProduct = {...product , quantity: product.quantity + 1};
-        updateProductQuantity(updatedProduct);
+        const updatedProduct = {...product, quantity: product.quantity + 1};
+        updateCartProducts(updatedProduct, updatedProduct.quantity);
     }
 
-    const updateProductQuantity = (updatedProduct) => {
-        // Assuming you have a function in context like updateCartProduct
-        updateCartProduct(updatedProduct);
-    };
-
-    const handleQuantityChange = (product , newQuantity) => {
+    const handleQuantityChange = (product, newQuantity) => {
         const parsedQuantity = parseInt(newQuantity, 10);
-        if(!isNaN(parsedQuantity) && parsedQuantity > 0) {
-            const updatedProduct = {...product , quantity: parsedQuantity};
-            updateProductQuantity(updatedProduct);
+        if (!isNaN(parsedQuantity)) {
+            const validQuantity = Math.max(1, parsedQuantity);
+            updateCartProducts(product, validQuantity);
         }
-    };
+    }
+    
 
 
    
@@ -112,9 +106,9 @@ export default function CartPage() {
 
 
 
-    if(status == "loading" || !profileFetched) {
+    if(status === "loading" || !profileFetched) {
         return <div 
-                className="text-center font-semibold text-primary bg-light-background dark:bg-dark-background text-2xl h-screen flex justify-center items-center">
+                className="relative z-40 text-center font-semibold text-primary text-2xl h-screen flex justify-center items-center">
                     Loading...
                 </div>
     }
@@ -131,7 +125,6 @@ export default function CartPage() {
         </section>
       );
     }
-
 
 
 
@@ -228,9 +221,15 @@ export default function CartPage() {
                                     </thead>
 
                                     <tbody>
-                                        {cartProducts?.length > 0 && cartProducts.map((product , index) => (
+                                        {cartProducts?.length > 0 && cartProducts.map((product , index) => {
 
-                                            <tr key={index} className="hover:bg-gray-200 hover:cursor-pointer border-dashed border-b-2 border-b-gray-300 dark:hover:bg-dark-background">
+                                            const productKey = generateProductKey(product);
+
+                                            // console.log(productKey);
+
+                                            
+                                            return (
+                                            <tr key={productKey} className="hover:bg-gray-200 hover:cursor-pointer border-dashed border-b-2 border-b-gray-300 dark:hover:bg-dark-background">
 
                                                 <td className="font-semibold text-center text-light-text dark:text-dark-text">{index + 1}</td>
 
@@ -284,10 +283,16 @@ export default function CartPage() {
 
 
                                                     <input type="number" 
-                                                        className="w-12 text-center border border-gray-300 rounded-md appearance-none
-                                                        [&::-webkit-inner-spin-button]:hidden [&::-webkit-outer-spin-button]:hidden" 
+                                                        className="w-12 text-center border border-gray-300 rounded-md
+                                                        [&::-webkit-inner-spin-button]:hidden [&::-webkit-outer-spin-button]:hidden"
+                                                       
                                                         value={product.quantity} 
-                                                        onChange={() => handleQuantityChange(product , e.target.value)} 
+                                                        readOnly
+                                                        onChange={(e) =>{
+                                                             console.log('product id:', product.id); 
+                                                             console.log('input value:', e.target.value);
+                                                             handleQuantityChange(product.id,e.target.value)}
+                                                            } 
                                                     />
 
 
@@ -324,7 +329,9 @@ export default function CartPage() {
                                                     </button>
                                                 </td>
                                             </tr>
-                                        ))}
+                                            
+                                            )
+                                        }) }
                                     </tbody>
                                 </table>
                             </div>

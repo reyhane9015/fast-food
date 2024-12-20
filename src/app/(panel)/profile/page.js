@@ -42,7 +42,7 @@ function ProfilePage() {
                 // setIsAdmin(data.isAdmin);
             })
         })
-    } , [ status])
+    } , [status])
 
 
     async function handleProfileInfoUpdate(e , data) {
@@ -73,12 +73,12 @@ function ProfilePage() {
 
     
 
-    if(status == "loading" || !profileFetched) {
-        return <div 
-                className="text-center font-semibold text-primary bg-light-background dark:bg-dark-background text-2xl h-screen flex justify-center items-center">
-                    Loading...
-                </div>
-    }
+    // if(status == "loading" || !profileFetched) {
+    //     return <div 
+    //             className="text-center font-semibold text-primary bg-light-background dark:bg-dark-background text-2xl h-screen flex justify-center items-center">
+    //                 Loading...
+    //             </div>
+    // }
 
     
 
@@ -89,15 +89,12 @@ function ProfilePage() {
 
   return (
         <section>
+            
             {status == "authenticated" && 
-                <div className="">
-
-                    {/* <UserTabs isAdmin={true} /> */}
-
+                <div>
 
                     {user !== null && <UserForm user={user} onSave={handleProfileInfoUpdate} /> }
                     
-              
                 
                 </div>
             }

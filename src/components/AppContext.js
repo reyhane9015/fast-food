@@ -119,13 +119,43 @@ const removeCartProduct = (indexToRemove) => {
 
 }
 
-const updateCartProduct = (updatedProduct) => {
-  setCartProducts(prevProducts => 
-    prevProducts.map((product) => 
-      product.id === updatedProduct.id ? updatedProduct : product
-    )
-  )
-}
+
+// const updateCartProducts = (productId, newQuantity) => {
+//   setCartProducts(prevProducts => 
+//       prevProducts.map(product => 
+//           product._id === productId ? { ...product, quantity: newQuantity } : product
+//       )
+//   );
+// };
+
+
+
+
+const generateProductKey = (product) => {
+
+  if (!product || !product._id || !product.size || !product.size._id) {
+    console.error('Invalid product:', product);
+    return null;
+  }
+
+  const extraItemsKey = JSON.stringify((product.extraItems || []).map(extra => extra._id).sort());
+  const extrasKey = JSON.stringify((product.extras || []).map(extra => extra._id).sort());
+  return `${product._id}-${product.size._id}-${extraItemsKey}-${extrasKey}`;
+};
+
+
+const updateCartProducts = (product, newQuantity) => {
+  
+  const productKey = generateProductKey(product);
+  setCartProducts(prevProducts =>
+      prevProducts.map(item =>
+          generateProductKey(item) === productKey
+              ? { ...item, quantity: newQuantity }
+              : item
+      )
+  );
+};
+
 
 
 const cartProductPrice = (cartProduct) => {
@@ -162,7 +192,7 @@ const cartProductsCount = () => {
 }
 
 
-const value = {cartProducts ,setCartProducts , isItemAdded, cartProductsCount ,addToCart ,clearCart  ,removeCartProduct ,updateCartProduct , cartProductPrice ,theme , toggleTheme };
+const value = {cartProducts ,setCartProducts , isItemAdded, cartProductsCount ,addToCart ,clearCart  ,removeCartProduct ,updateCartProducts , generateProductKey, cartProductPrice ,theme , toggleTheme };
 
 
 

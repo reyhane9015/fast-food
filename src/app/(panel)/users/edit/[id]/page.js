@@ -8,6 +8,7 @@ import { toast } from 'react-hot-toast';
 import { redirect , useParams } from 'next/navigation';
 import DeleteButton from '@/components/DeleteButton';
 import Link from 'next/link';
+import LinkPrimary from '@/components/ui/LinkPrimary';
 
 function EditUserPage() {
 
@@ -99,46 +100,42 @@ function EditUserPage() {
     setRedirectToItems(true);
   }
 
+  if(status == "unauthenticated") {
+    return redirect ("/login");
+  }
+
 
 
 
 
   return (
-    <>
+    <section>
+
       {status == "authenticated" && 
-        <section className="">
 
-            {/* <UserTabs isAdmin={true} /> */}
+        <div>
+          <div className="max-w-6xl m-auto flex justify-between">
 
+            {/* <div className="max-w-[170px] flex justify-center border border-primary text-primary py-4 px-2 rounded-full">
+            <Link href="/users">{'<<'} Back to All Users</Link>
+          </div> */}
 
-            {/* {loading && <div 
-                    className="text-center font-semibold text-primary bg-light-background dark:bg-dark-background text-2xl h-screen flex justify-center items-center">
-                        Loading...
-                    </div>
-            } */}
+          <div className="w-[170px] mb-16">
+              <LinkPrimary href={"/users"} title="Back to All Users" />
+          </div>
 
-            <div className="max-w-6xl m-auto flex justify-between">
+          <div>
+            <DeleteButton label="Delete" onDelete={handleUserDelete} />
+          </div>
 
-              {/* <div className="max-w-[170px] flex justify-center border border-primary text-primary py-4 px-2 rounded-full">
-              <Link href="/users">{'<<'} Back to All Users</Link>
-            </div> */}
-
-            <div className="w-[170px] mb-16">
-                <LinkPrimary href={"/users"} title="Back to All Users" />
-            </div>
-
-            <div>
-              <DeleteButton label="Delete" onDelete={handleUserDelete} />
-            </div>
-
-            </div>
+          </div>
 
 
-            {user !== null && <UserForm user={user} onSave={handleFormSubmit} />}
+          {user !== null && <UserForm user={user} onSave={handleFormSubmit} />}
         
-        </section>
+        </div>
       }
-    </>  
+    </section>  
   )
 }
 

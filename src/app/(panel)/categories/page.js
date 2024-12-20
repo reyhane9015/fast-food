@@ -9,10 +9,14 @@ import { toast } from 'react-hot-toast';
 import DeleteButton from '@/components/DeleteButton';
 import Image from 'next/image';
 import Input from './../../../components/Input';
+import { useSession } from 'next-auth/react';
 
 import withAuth from './../../../libs/withAuth';
 
 function CategoriesPage() {
+
+  const session = useSession();
+  const status = session.status;
 
   const[categoryName , setCategoryName] = useState('');
   const [categories , setCategories] = useState([]);
@@ -102,20 +106,17 @@ function CategoriesPage() {
     
   }
 
+  if(status == "unauthenticated") {
+    return redirect ("/login");
+  }
+
+
 
   
   return (
     <section>
-      
-      {/* <UserTabs isAdmin={false} /> */}
 
-
-      
-      {/* {!dataFetched && <div 
-                            className="text-center font-semibold text-primary bg-light-background dark:bg-dark-background text-2xl h-screen flex justify-center items-center">
-                                Loading...
-                            </div>
-      } */}
+      {status == "authenticated" && 
 
  
           <div className="max-w-2xl m-auto border rounded-md p-4">
@@ -125,7 +126,7 @@ function CategoriesPage() {
                     <label>{editedCatergory ? "Update category:" : "New Category Name"}</label>
                     {editedCatergory && (
                       <>
-                      {' '} <b>{editedCatergory.name}</b>
+                        <b>{editedCatergory.name}</b>
                       </>
                     )}
 
@@ -160,8 +161,8 @@ function CategoriesPage() {
                     All Categories
                   </h2>
               </div>
-              {categories?.length > 0  ? 
-                categories.map(cat => (
+              {categories ? (
+                categories.map(cat => 
                   <div
                     key={cat._id}
                     className="flex justify-between bg-gray-100 px-4 py-2 rounded-xl mb-2 dark:bg-dark-SBackground"
@@ -184,11 +185,15 @@ function CategoriesPage() {
 
                     </div>
                   </div>
-                )) : <div className="text-center font-semibold text-primary text-lg">There are No categories yet</div>
+                  )) : (
+                        <div className="text-center font-semibold text-primary text-lg">There are No categories yet</div>
+                      )
               }
             </div>
       
-      </div>
+        </div>
+
+      }
 
     </section>
   )

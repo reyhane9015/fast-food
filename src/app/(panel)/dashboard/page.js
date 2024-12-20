@@ -6,10 +6,14 @@ import { CartContext } from '@/components/AppContext';
 import { parseISO, isSameDay, isSameWeek, isSameMonth, startOfDay, startOfWeek, startOfMonth } from 'date-fns';
 import DashboardTop from '@/components/dashboard/DashboardTop';
 import DashboardBests from '@/components/dashboard/DashboardBests';
+import { useSession } from 'next-auth/react';
 
 import withAuth from './../../../libs/withAuth';
 
 function DashboardPage() {
+
+  const session = useSession();
+  const status = session.status;
     
   const[orders , setOrders] = useState([]);
   const[isAdmin , setIsAdmin] = useState(true);
@@ -194,7 +198,7 @@ function DashboardPage() {
     orders.forEach( order => {
         order.user.forEach(u => {
 
-          const normalizedCountry = u.country.toLowerCase();
+          const normalizedCountry = u?.country?.toLowerCase();
 
           if(!countryCount[normalizedCountry]) {
             countryCount[normalizedCountry] = 0;
@@ -259,6 +263,9 @@ function DashboardPage() {
 
 
 
+  if(status == "unauthenticated") {
+    return redirect ("/login");
+  }
 
 
 
@@ -269,7 +276,7 @@ function DashboardPage() {
       
       {/* <UserTabs isAdmin={isAdmin} /> */}
 
-{/*      
+    {/*      
       {!dataFetched && <div 
                           className="text-center font-semibold text-primary bg-light-background dark:bg-dark-background text-2xl h-screen flex justify-center items-center">
                               Loading...
@@ -277,19 +284,20 @@ function DashboardPage() {
       } */}
 
 
-    
-      <DashboardTop todayIncome={todayIncome} thisWeekIncome={thisWeekIncome} thisMonthIncome={thisMonthIncome}
-                    todayOrderCount={todayOrderCount} thisWeekOrderCount={thisWeekOrderCount} 
-                    thisMonthOrderCount={thisMonthOrderCount} todayOrderPercentage={todayOrderPercentage}
-                    thisWeekOrderPercentage={thisWeekOrderPercentage} thisMonthOrderPercentage={thisMonthOrderPercentage}
-       />
+    {status == "authenticated" &&
+        <>
+          <DashboardTop todayIncome={todayIncome} thisWeekIncome={thisWeekIncome} thisMonthIncome={thisMonthIncome}
+                        todayOrderCount={todayOrderCount} thisWeekOrderCount={thisWeekOrderCount} 
+                        thisMonthOrderCount={thisMonthOrderCount} todayOrderPercentage={todayOrderPercentage}
+                        thisWeekOrderPercentage={thisWeekOrderPercentage} thisMonthOrderPercentage={thisMonthOrderPercentage}
+          />
 
 
 
-      <DashboardBests itemSalesCount={itemSalesCount} cSalesCount={cSalesCount} customerCount={customerCount} cardInfo={cardInfo} itemSalesCountPercentage={itemSalesCountPercentage} />
+          <DashboardBests itemSalesCount={itemSalesCount} cSalesCount={cSalesCount} customerCount={customerCount} cardInfo={cardInfo} itemSalesCountPercentage={itemSalesCountPercentage} />
+        </>
 
-
-
+    }
 
     </section>
   )

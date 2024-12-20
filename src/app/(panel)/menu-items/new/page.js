@@ -6,14 +6,19 @@ import { toast } from 'react-hot-toast';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import MenuItemForm from '@/components/menu/MenuItemForm';
+import { useSession } from 'next-auth/react';
 
 import withAuth from './../../../../libs/withAuth';
-
 import LinkPrimary from '@/components/ui/LinkPrimary';
 
 
 
 function NewMenuItemPage() {
+
+
+    const session = useSession();
+    const status = session.status;
+
 
     const[isSaving , setIsSaving] = useState(false);
     const[redirectToItems , setRedirectToItems] = useState(false);
@@ -57,10 +62,14 @@ function NewMenuItemPage() {
         return redirect('/menu-items');
     }
 
+    if(status == "unauthenticated") {
+        return redirect ("/login");
+      }
+
 
 
   return (
-    <section className="">
+    <section>
       
         {/* <UserTabs isAdmin={true}/> */}
         
@@ -71,21 +80,25 @@ function NewMenuItemPage() {
             </div>
         } */}
 
+        {status == "authenticated" && 
 
-        <div className="max-w-6xl m-auto pb-8">
 
-            {/* <div className="max-w-[170px] flex justify-center py-4 border border-primary text-primary py-4 px-2 rounded-full">
-                <Link href="/menu-items">{'<<'} Back to All Items</Link>
-            </div> */}
+            <div className="max-w-6xl m-auto pb-8">
 
-            <div className="w-[170px] mb-16">
-                <LinkPrimary href={"/menu-items"} title="Back to All Items" />
+                {/* <div className="max-w-[170px] flex justify-center py-4 border border-primary text-primary py-4 px-2 rounded-full">
+                    <Link href="/menu-items">{'<<'} Back to All Items</Link>
+                </div> */}
+
+                <div className="w-[170px] mb-16">
+                    <LinkPrimary href={"/menu-items"} title="Back to All Items" />
+                </div>
+
+            
+                <MenuItemForm onSubmit={handleFormSubmit} />
+
             </div>
 
-        
-            <MenuItemForm onSubmit={handleFormSubmit} />
-
-        </div>
+        }
 
 
     </section>

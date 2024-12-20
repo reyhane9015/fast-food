@@ -3,6 +3,7 @@
 import { useEffect, useState , useContext } from 'react';
 import { redirect, useParams } from 'next/navigation';
 import { toast } from 'react-hot-toast';
+import Link from 'next/link';
 import { CartContext } from '@/components/AppContext';
 import SectionHeader from '@/components/ui/SectionHeader';
 import { useSession } from 'next-auth/react';
@@ -10,10 +11,10 @@ import Input from '@/components/Input';
 import ButtonPrimary from '@/components/layout/ButtonPrimary';
 
 
-
 function OrderPaymentPage() {
 
-  const {cartProducts , cartProductsCount} = useContext(CartContext);
+  const {cartProducts , cartProductsCount , cartProductPrice , clearCart} = useContext(CartContext);
+
 
   const[isSaving , setIsSaving] = useState(false);
   const[cardNumber , setCardNumber] = useState('');
@@ -37,8 +38,9 @@ function OrderPaymentPage() {
 
 
   const{id} = useParams();
-  console.log(id);
+  // console.log(id);
 
+  
 
 //   useEffect(() => {
 
@@ -52,6 +54,10 @@ function OrderPaymentPage() {
 //         })
 //     })
 // } , [status]);
+
+
+
+// console.log(cartProducts);
 
 
   let total = 0;
@@ -79,39 +85,49 @@ function OrderPaymentPage() {
 
 
 
-  async function handleOrderPayment(e) {
+async function handleOrderPayment(e) {
 
-    e.preventDefault();
+  e.preventDefault();
 
-    setIsSaving(true);
+  setIsSaving(true);
 
-    const cardInfo = { cardNumber: cardNumber, expiryDate: expiryDate, cvv: cvv };
+  const cardInfo = { cardNumber: cardNumber, expiryDate: expiryDate, cvv: cvv };
 
-    const response = await fetch('/api/orders' , {
-      method: 'PUT',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ _id: id , cardInfo , paid: true})
-    })
-    // console.log("response is:" , response);
+  const response = await fetch('/api/orders' , {
+    method: 'PUT',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ _id: id , cardInfo , paid: true})
+  })
+  // console.log("response is:" , response);
 
-    const result = await response.json();
-    console.log("result is:" , result);
+  const result = await response.json();
+  console.log("result is:" , result);
 
-    setOrder(result);
-   
+  setOrder(result);
+  
 
-    if(result.paid) {
-      setRedirectToPaymentSuccess(true);
-    } else {
-      toast.error("something went wrong!");
-    }
-    setIsSaving(false);
-    
+  if(result.paid) {
+    setRedirectToPaymentSuccess(true);
+  } else {
+    toast.error("something went wrong!");
   }
+  setIsSaving(false);
+  
+}
 
 
   if(redirectToPaymentSuccess) {
+    clearCart();
     return redirect('/payment-success');
+  }
+
+
+  if (status === 'loading') {
+    return (
+      <div className="relative z-40 text-center font-semibold text-primary text-2xl h-screen flex justify-center items-center">
+        Loading...
+      </div>
+    );
   }
 
 
@@ -120,79 +136,75 @@ function OrderPaymentPage() {
       <div className="relative z-40 text-center pt-24">
         <SectionHeader subHeader="Payment" mainHeader="Details" />
 
-        {/* {loading && <div 
-          className="text-center font-semibold text-primary bg-light-background dark:bg-dark-background text-2xl h-screen flex justify-center items-center">
-              Loading...
-          </div>
-        } */}
+        {status == "authenticated" ? 
+          <form className="relative z-40 max-w-2xl m-auto border rounded-md p-4 bg-light-SBackground dark:bg-dark-SBackground" >
 
-        {/* {JSON.stringify(cartProducts)} */}
+            <Input 
+              type={"text"}
+              label={"Card Number"} 
+              placeholder={"** ** ** **"} 
+              value={cardNumber} 
+              onChange={(e) => setCardNumber(e.target.value)}
+              isSaving={isSaving}
+              disabled={isSaving} 
+            />
 
+              <div className="flex gap-4 justify-center">
+                <div className="grow">
+                    <Input 
+                      type={"text"}
+                      label={"Expiry Date"} 
+                      placeholder={"Expiry Date"} 
+                      value={expiryDate} 
+                      onChange={(e) => setexpiryDate(e.target.value)}
+                      isSaving={isSaving}
+                      disabled={isSaving} 
+                    />
+                </div>
 
-        <form className="relative z-40 max-w-2xl m-auto border rounded-md p-4 bg-light-SBackground dark:bg-dark-SBackground" >
-
-          <Input 
-            type={"text"}
-            label={"Card Number"} 
-            placeholder={"** ** ** **"} 
-            value={cardNumber} 
-            onChange={(e) => setCardNumber(e.target.value)}
-            isSaving={isSaving}
-            disabled={isSaving} 
-          />
-
-            <div className="flex gap-4 justify-center">
               <div className="grow">
-                  <Input 
+
+                <Input 
                     type={"text"}
-                    label={"Expiry Date"} 
-                    placeholder={"Expiry Date"} 
-                    value={expiryDate} 
-                    onChange={(e) => setexpiryDate(e.target.value)}
+                    label={"CVV"} 
+                    placeholder={"CVV"} 
+                    value={cvv} 
+                    onChange={(e) => setCvv(e.target.value)}
                     isSaving={isSaving}
                     disabled={isSaving} 
                   />
               </div>
-
-            <div className="grow">
-
-              <Input 
-                  type={"text"}
-                  label={"CVV"} 
-                  placeholder={"CVV"} 
-                  value={cvv} 
-                  onChange={(e) => setCvv(e.target.value)}
-                  isSaving={isSaving}
-                  disabled={isSaving} 
-                />
-            </div>
-          </div>
-
-
-
-            {/* <div className="py-4 my-2 border-y-2">
-                <div className="font-semibold text-light-text dark:text-dark-text">
-                    <div>
-                      SubTotal Price: <span>{total}$</span>
-                    </div>
-                    <div>
-                        Delivery Price: <span>10$</span>
-                    </div>
-                </div>
             </div>
 
-            <div className="font-semibold text-2xl py-4 text-light-text dark:text-dark-text">
-                Total Price: <span>{total + 10}$</span>
-            </div> */}
 
-          <div className="w-[60%] mx-auto">
-            <ButtonPrimary type="submit" disabled={isSaving} onClick={handleOrderPayment} title="Pay" />
-          </div>
-               
-          {/* <button type="submit" disabled={isSaving} onClick={handleOrderPayment}>Pay</button> */}
+
+              {/* <div className="py-4 my-2 border-y-2">
+                  <div className="font-semibold text-light-text dark:text-dark-text">
+                      <div>
+                        SubTotal Price: <span>{total}$</span>
+                      </div>
+                      <div>
+                          Delivery Price: <span>10$</span>
+                      </div>
+                  </div>
+              </div>
+
+              <div className="font-semibold text-2xl py-4 text-light-text dark:text-dark-text">
+                  Total Price: <span>{total + 10}$</span>
+              </div> */}
+
+            <div className="w-[60%] mx-auto">
+              <ButtonPrimary type="submit" disabled={isSaving} onClick={handleOrderPayment} title="Pay" />
+            </div>
                 
-        </form>
-     
+            {/* <button type="submit" disabled={isSaving} onClick={handleOrderPayment}>Pay</button> */}
+                  
+          </form> 
+          :
+          <div className="relative z-40 text-center text-lg text-gray-600 font-semibold">Please Login to continue? {' '} 
+            <Link href="/login" className="text-primary underline">Login</Link>
+          </div>
+        }
             
       </div>
     </section>

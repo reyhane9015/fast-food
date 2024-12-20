@@ -53,7 +53,7 @@ function DashboardBests({itemSalesCount , cSalesCount , customerCount , cardInfo
                         {customerCount.slice(0,5).map(([customer,count]) => 
                             <div key={customer} className="flex items-center justify-between my-4">
                                 <div className="flex gap-2 items-center text-gray-600 dark:text-gray-300">
-                                    <Image src="/profile.jpg" width={30} height={30} alt="profile" className="rounded-md border-2 border-gray-200" />
+                                    <Image src="/profile.png" width={30} height={30} alt="profile" className="rounded-md border-2 border-gray-200" />
                                     <span className="text-sm">{customer}</span>
                                 </div>
                                 <div className="font-semibold text-sm text-primary dark:text-gray-300">

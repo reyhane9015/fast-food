@@ -17,12 +17,13 @@ const withAuth = (WrappedComponent) => {
         fetch('/api/profile')
           .then((response) => response.json())
           .then((data) => {
-            // console.log("with auth data is:", data);
+            console.log("with auth data is:", data);
             if (data.admin) {
               setIsAdmin(true);
             } else {
               router.push('/profile');
             }
+            //  setIsAdmin(data?.admin ?? false);
           })
           .catch(() => {
             router.push('/profile');
