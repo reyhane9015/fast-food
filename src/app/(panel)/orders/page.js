@@ -79,10 +79,10 @@ function OrdersPage() {
             return orders.filter(order => order.paid);
         } else if(selectedTab === "failed") {
             return orders.filter(order => !order.paid);
-        } else {
-            return orders;
         }
+        return orders;
     }
+
 
     const filteredOrders = filterOrderByPay(orders , selectedTab);
 
@@ -136,7 +136,7 @@ function OrdersPage() {
                 <div className="overflow-x-auto">
                     {filteredOrders ? (
                         filteredOrders.map((order) => 
-                        <div key={order._id} className="bg-transparent text-light-text dark:text-dark-text p-4 my-2 flex gap-4 justify-between items-center min-w-full" key={order._id}>
+                        <div key={order._id} className="bg-transparent text-light-text dark:text-dark-text p-4 my-2 flex gap-4 justify-between items-center min-w-full">
                             <p>{order.userEmail}</p>
 
                             <div className="font-semibold text-gray-500 flex gap-4 items-center whitespace-no-wrap">
