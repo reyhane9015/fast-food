@@ -6,21 +6,38 @@ export function useProfile() {
 
     const [data , setData] = useState(false);
     const[loading , setLoading] = useState(true);
+    const [error , setError] = useState(null);
 
 
     useEffect(() => {
 
       setLoading(true);
+      setError(null);
 
-      fetch('/api/profile').then(data => {
-        setData(data);
-        setLoading(false);
+      fetch('/api/profile')
+        // .then(data => {
+        //   setData(data);
+        //   setLoading(false);
 
-        console.log(data);
-      })
+        //   console.log(data);
+        // })
+        .then(response => {
+          if(!response.ok)  {
+            throw new Error("Failed to fech Profile data");
+          }
+          return response.json();
+        })
+        .then(profileData => {
+          setData(profileData);
+          setLoading(false);
+        })
+        .catch(err => {
+          setError(err.message);
+          setLoading(false);
+        });
     } ,[]);
 
 
-  return {loading , data};
+  return {loading , data , error};
 }
 

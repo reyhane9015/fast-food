@@ -17,14 +17,16 @@ function MenuItemCard({onAddToCard , ...item}) {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        fetch('/api/categories').then(response => {
-            response.json().then(categories => {
+        fetch('/api/categories')
+            .then((response) => response.json())
+            .then((categories) => {
                 setCategories(categories);
-        
             })
-        })
+            .catch((error) => {
+                console.error('Error fetching categories:', error);
+            });
     }, []);
-
+    
     // console.log(categories);
 
     // *********************************************************************************//

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState ,useEffect,  useContext } from 'react';
+import { useState , useContext } from 'react';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 // import Check from './../../../components/icons/Check';

@@ -34,7 +34,7 @@ function EditUserPage() {
               setLoading(false);
           })
       })
-  } ,[])
+  } ,[id]);
 
 
   // Edit and Add User

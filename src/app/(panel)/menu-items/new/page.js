@@ -1,7 +1,7 @@
 "use client";
 
 import UserTabs from '@/components/ui/UserTabs';
-import { useState ,useEffect } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';

@@ -56,11 +56,11 @@ function TableProps({props , setProps , label}) {
                                         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-dark-SBackground">
                                             <div className="flex">
                                             <div className="flex-shrink-0 w-10 h-10">
-                                                <img
+                                                {/* <img
                                                 className="w-full h-full rounded-full"
                                                 src="/profile.jpg"
                                                 alt="profile"
-                                                />
+                                                /> */}
                                             </div>
                                             <div className="ml-3">
                                                 <p className="text-light-text dark:text-dark-text whitespace-no-wrap font-semibold text-lg">

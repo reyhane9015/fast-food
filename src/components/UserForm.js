@@ -39,10 +39,14 @@ function UserForm({user , onSave , isEditable = true}) {
     const [cityOptions, setCityOptions] = useState([]);
 
     useEffect(() => {
+
+        if(!country) {
+            setCityOptions([]);
+            return;
+}
+
         const selectedCountry = countriesWithCities.find(c => c.name === country);
-
         // console.log(selectedCountry);
-
         setCityOptions(selectedCountry ? selectedCountry.cities : []);
     }, [country]);
     
@@ -168,7 +172,7 @@ function UserForm({user , onSave , isEditable = true}) {
             
 
                 {(path === '/profile' || path.includes('/users/edit')) && 
-                    <button type="submit" disabled={isSaving}>Save</button>
+                    <button type="submit" disabled={isSaving}>{isSaving ? "Saving" : "Save"}</button>
                 }
             </form>
             

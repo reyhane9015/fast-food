@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { CartContext }  from './../AppContext';
-import { useState , useEffect , useContext } from "react";
+import { useState , useContext } from "react";
 import { toast } from 'react-hot-toast';
 import MenuItemCard from "./MenuItemCard";
 // import { useSession } from 'next-auth/react';

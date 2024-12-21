@@ -40,16 +40,40 @@ function DashboardPage() {
 
 
   //  fetch all orders
-  useEffect(() => { 
-    fetch('/api/orders').then(response => {
-        response.json().then(orders => {
-          setOrders(orders);
-          console.log("orders are:" , orders);
+  // useEffect(() => { 
+  //   fetch('/api/orders').then(response => {
+  //       response.json().then(orders => {
+  //         setOrders(orders);
+  //         console.log("orders are:" , orders);
           
-          setDataFetched(true);
-        })
-    })
-  },[]);
+  //         setDataFetched(true);
+  //       });
+  //   });
+  // },[]);
+
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await fetch('/api/orders');
+        
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        setOrders(data);
+        setDataFetched(true);
+      } catch (error) {
+        console.error('Failed to fetch orders:', error);
+        setDataFetched(false);
+      }
+    };
+  
+    fetchOrders();
+  }, []);
+  
+  
 
 
 
@@ -58,47 +82,52 @@ function DashboardPage() {
 
     if(!orders) return;
 
-    const today = startOfDay(new Date());
-    const thisWeekStart = startOfWeek(new Date());
-    const thisMonthStart = startOfMonth(new Date());
+    try {
+      const today = startOfDay(new Date());
+      const thisWeekStart = startOfWeek(new Date());
+      const thisMonthStart = startOfMonth(new Date());
 
-    let todayIncomeTemp = 0;
-    let thisWeekIncomeTemp = 0;
-    let thisMonthIncomeTemp = 0;
+      let todayIncomeTemp = 0;
+      let thisWeekIncomeTemp = 0;
+      let thisMonthIncomeTemp = 0;
 
-    orders.forEach(order => {
+      orders.forEach(order => {
 
-      const createdAt = parseISO(order.createdAt);
+        const createdAt = parseISO(order.createdAt);
 
-      if(order.paid) {
+        if(order.paid) {
 
-        if(isSameDay(createdAt, today)) {
-          todayIncomeTemp += order.totalPrice;
+          if(isSameDay(createdAt, today)) {
+            todayIncomeTemp += order.totalPrice;
+          }
+
+          if(isSameWeek(createdAt , thisWeekStart)) {
+            thisWeekIncomeTemp += order.totalPrice;
+          }
+
+          if(isSameMonth(createdAt , thisMonthStart)) {
+            thisMonthIncomeTemp += order.totalPrice;
+          }
+
         }
 
-        if(isSameWeek(createdAt , thisWeekStart)) {
-          thisWeekIncomeTemp += order.totalPrice;
-        }
+      });
 
-        if(isSameMonth(createdAt , thisMonthStart)) {
-          thisMonthIncomeTemp += order.totalPrice;
-        }
-
-      }
-
-    });
-
-    setTodayIncome(todayIncomeTemp);
-    setThisWeekIncome(thisWeekIncomeTemp);
-    setThisMonthIncome(thisMonthIncomeTemp);
-
-    } , [orders]);
+      setTodayIncome(todayIncomeTemp);
+      setThisWeekIncome(thisWeekIncomeTemp);
+      setThisMonthIncome(thisMonthIncomeTemp);
+    } catch(error) {
+      console.error('Error while calculating income:', error);
+    }
+  },[orders]);
 
 
   // calc order count with date-fns
   useEffect(() => {
 
     if(!orders) return;
+
+    try {
 
     const today = startOfDay(new Date());
     const thisWeekStart = startOfWeek(new Date());
@@ -138,8 +167,11 @@ function DashboardPage() {
       setThisMonthOrderPercentage(thisMontherPercentage);
 
     });
+  } catch(error) {
+    console.error('Error while calculating order count:', error);
+  }
 
-    } , [orders]);
+  },[orders]);
 
 
 
@@ -147,6 +179,8 @@ function DashboardPage() {
   useEffect(() => {
 
     if(!orders) return;
+
+    try {
 
     let totalOrderCount = orders.length;
 
@@ -183,14 +217,18 @@ function DashboardPage() {
 
     setItemSalesCountPercentage(salesCountPercentageArray);
 
-
-  } , [orders]);
+  } catch(error) {
+    console.error("Error while processing item sales count:", error);
+  }
+  },[orders]);
 
 
   // country sales statistics
   useEffect(()=> {
 
     if(!orders) return;
+
+    try {
 
     let totalOrderCount = orders.length;
 
@@ -214,13 +252,18 @@ function DashboardPage() {
       countryPercentage[country] = percentage.toFixed(2);
     }
     setcSalesCount(countryPercentage);
+  } catch(error){
+    console.error("Error while processing count sale:", error);
+  }
 
-  } ,[orders]);
+  },[orders]);
 
 
   // best sellers statistics
   useEffect(() => {
     if (!orders) return;
+
+    try {
 
     const customerCount = {};
 
@@ -240,13 +283,18 @@ function DashboardPage() {
     customerCountArray.sort((a, b) => b[1] - a[1]);
 
     setCustomerCount(customerCountArray);
+  } catch(error) {
+    console.error("Error while processing best sellers:", error);
+  }
 
-}, [orders]);
+},[orders]);
 
 
   // card info
   useEffect(() => {
     if (!orders) return;
+
+    try {
 
     let cardInfoArray = [];
 
@@ -258,8 +306,11 @@ function DashboardPage() {
     });
 
     setCardInfo(cardInfoArray.reverse());
+  } catch(error) {
+    console.error("Error while processing card info:", error);
+  }
 
-  }, [orders]);
+  },[orders]);
 
 
 

@@ -13,7 +13,7 @@ import  Delete from '@/components/icons/Delete';
 import ButtonSecondery from '@/components/layout/ButtonSecondery';
 import ButtonPrimary from '@/components/layout/ButtonPrimary';
 import { toast } from 'react-hot-toast';
-
+import { useRouter } from 'next/navigation';
 
 
 export default function CartPage() {
@@ -29,18 +29,20 @@ export default function CartPage() {
 
     const[isSaving , setIsSaving] = useState(false);
     const[profileFetched , setProfileFetched] = useState(false);
-
+    
+    const router = useRouter();
 
 
     useEffect(() => {
 
         setUserName(session.data?.user?.name);
 
-        fetch('/api/profile').then(response => {
-            response.json().then(data => {
+        fetch('/api/profile')
+        .then(response => {response.json()
+        .then(data => {
                 // console.log("data is" , data);
                 setUser(data);
-                setProfileFetched(true); 
+                // setProfileFetched(true); 
             })
         })
     } , [status]);
@@ -87,26 +89,33 @@ export default function CartPage() {
 
         setIsSaving(true);
 
-        const response = await fetch('/api/orders' , {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({user , cartProducts , totalPrice: total})
-        })
-        const result = await response.json();
-        // console.log("result is:" , result);
+        try {
+            const response = await fetch('/api/orders' , {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({user , cartProducts , totalPrice: total})
+            })
+            const result = await response.json();
+            // console.log("result is:" , result);
 
-        // console.log(result._id);
+            // console.log(result._id);
 
-        let id = result._id;
-        
-        setIsSaving(false);
+            let id = result._id;
+            
+            setIsSaving(false);
 
-        window.location.href = `/orders/${id}/checkout`;
+            window.location.href = `/orders/${id}/checkout`;
+            // router.push(`/orders/${result._id}/checkout`);
+        } catch(error) {
+            console.error("Error during checkout:", error);
+            setIsSaving(false);
+            toast.error("Something went wrong. Please try again later.");
+        }
     }
 
 
 
-    if(status === "loading" || !profileFetched) {
+    if(status === "loading" || !user) {
         return <div 
                 className="relative z-40 text-center font-semibold text-primary text-2xl h-screen flex justify-center items-center">
                     Loading...
@@ -152,9 +161,9 @@ export default function CartPage() {
 
                     <div className="rounded-lg bg-light-SBackground dark:bg-dark-SBackground">
 
-                        {cartProducts?.length === 0 && (
-                            <div className="relative z-40">No products in your shopping cart</div>
-                        )}
+                        {/* {cartProducts?.length === 0 && (
+                            <div className="relative z-40">Your shopping cart is empty</div>
+                        )} */}
 
                     
 
@@ -221,7 +230,8 @@ export default function CartPage() {
                                     </thead>
 
                                     <tbody>
-                                        {cartProducts?.length > 0 && cartProducts.map((product , index) => {
+                                        {cartProducts?.length > 0 && (
+                                            cartProducts.map((product , index) => {
 
                                             const productKey = generateProductKey(product);
 
@@ -331,7 +341,10 @@ export default function CartPage() {
                                             </tr>
                                             
                                             )
-                                        }) }
+                                            
+                                            })
+                                          
+                                        )}
                                     </tbody>
                                 </table>
                             </div>

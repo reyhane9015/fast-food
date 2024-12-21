@@ -68,52 +68,67 @@ function OrderPaymentPage() {
 
 
   useEffect(() => {
-    setLoading(true);
-    fetch('/api/orders').then(res => {
-      res.json().then(data => {
+
+    const fetchorderData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/orders');
+        if(!response.ok) throw new Error('Failed to fetch orders');
+        const data = await response.json();
         const order = data.find(i => i._id == id);
-        // const orders = data;
         setOrder(order);
         console.log(order);
         // console.log(orders);
         setLoading(false);
-      })
-    })
-  } , []);
+      } catch(error) {
+        console.error('Error fetching order:', error);
+        toast.error('Error fetching order');
+        setLoading(false);
+      }
+    }
+  
+    fetchorderData();
+  } , [id]);
 
   
 
 
 
-async function handleOrderPayment(e) {
+  const handleOrderPayment = async (e) => {
+    e.preventDefault();
 
-  e.preventDefault();
+    setIsSaving(true);
 
-  setIsSaving(true);
+    const cardInfo = { cardNumber, expiryDate, cvv };
 
-  const cardInfo = { cardNumber: cardNumber, expiryDate: expiryDate, cvv: cvv };
+    try {
+      const response = await fetch('/api/orders', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ _id: id, cardInfo, paid: true })
+      });
 
-  const response = await fetch('/api/orders' , {
-    method: 'PUT',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({ _id: id , cardInfo , paid: true})
-  })
-  // console.log("response is:" , response);
+      if (!response.ok) {
+        throw new Error('Payment failed');
+      }
 
-  const result = await response.json();
-  console.log("result is:" , result);
+      const result = await response.json();
+      console.log("Payment result:", result);
 
-  setOrder(result);
-  
+      setOrder(result);
 
-  if(result.paid) {
-    setRedirectToPaymentSuccess(true);
-  } else {
-    toast.error("something went wrong!");
-  }
-  setIsSaving(false);
-  
-}
+      if (result.paid) {
+        setRedirectToPaymentSuccess(true);
+      } else {
+        toast.error("Something went wrong with the payment!");
+      }
+    } catch (error) {
+      console.error('Error processing payment:', error);
+      toast.error('Payment failed. Please try again.');
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
 
   if(redirectToPaymentSuccess) {
@@ -137,7 +152,7 @@ async function handleOrderPayment(e) {
         <SectionHeader subHeader="Payment" mainHeader="Details" />
 
         {status == "authenticated" ? 
-          <form className="relative z-40 max-w-2xl m-auto border rounded-md p-4 bg-light-SBackground dark:bg-dark-SBackground" >
+          <form onSubmit={handleOrderPayment} className="relative z-40 max-w-2xl m-auto border rounded-md p-4 bg-light-SBackground dark:bg-dark-SBackground" >
 
             <Input 
               type={"text"}

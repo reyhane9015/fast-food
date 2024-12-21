@@ -29,32 +29,50 @@ function EditMenuItemPage() {
   const{id} = useParams();
 
 
+  // useEffect(() => {
+  //   setLoading(true);
+  //     fetch('/api/menu-items').then(res => {
+  //         res.json().then(data => {
+  //             const item = data.find(i => i._id == id);
+  //             // setName(item.name);
+  //             // setDescription(item.description);
+  //             // setBasePrice(item.basePrice);
+  //             setMenuItem(item);
+  //             setLoading(false);
+  //         })
+  //     })
+  // },[menuItem]);
+  
   useEffect(() => {
     setLoading(true);
-      fetch('/api/menu-items').then(res => {
-          res.json().then(data => {
-              const item = data.find(i => i._id == id);
-              // setName(item.name);
-              // setDescription(item.description);
-              // setBasePrice(item.basePrice);
-              setMenuItem(item);
-              setLoading(false);
-          })
-      })
-  } ,[])
+
+    fetch('/api/menu-items')
+    .then(res => res.json())
+    .then(data => {
+      const item = data.find(i => i._id == id);
+      setMenuItem(item);
+      setLoading(false);
+    })
+    .catch(error => {
+      console.error('Error fetching menu items:', error);
+      setLoading(false);
+    })
+  },[id]);
+
 
     
 
 
 
   // Edit and Add MenuItems
-  async function handleFormSubmit(e,data) {
-      e.preventDefault();
+  const handleFormSubmit = async(e,data) => {
+    e.preventDefault();
 
-      setIsSaving(true);
-    
-      const savingPromise = new Promise(async(resolve, reject) => {
-            const response = await fetch('/api/menu-items' , {
+    setIsSaving(true);
+
+    try {
+        const savingPromise = new Promise(async(resolve, reject) => {
+        const response = await fetch('/api/menu-items' , {
                 method:'PUT',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({...data, _id: id}),
@@ -75,7 +93,14 @@ function EditMenuItemPage() {
         })
 
       setRedirectToItems(true);
+    } catch(error) {
+      console.error('Error in handleFormSubmit:', error);
+      toast.error('Error saving item.');
+    } finally {
+      setIsSaving(false);
     }
+  }
+    
 
 
     if(redirectToItems) {
@@ -84,30 +109,34 @@ function EditMenuItemPage() {
 
 
     // Delete item
-  async function handleItemDelete() {
-
-    const deletionPromise = new Promise(async(resolve, reject) => {
-       const response = await fetch('/api/menu-items', {
-         method: 'DELETE',
-         headers: {'Content-Type': 'application/json'},
-         body: JSON.stringify({_id: id})
-       })
-
-       if (response.ok) {
-        resolve();
-      } else {
-        reject();
-      }
-    })
-
-    await toast.promise(deletionPromise, {
-      loading: 'Deleting Item...',
-      success: 'Item Deleted Successfully!',
-      error: 'Error in Deleting Item',
-    });
+    async function handleItemDelete() {
+      const deletionPromise = new Promise(async (resolve, reject) => {
+        try {
+          const response = await fetch('/api/menu-items', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ _id: id }), // Passing the id of the item to delete
+          });
     
-    setRedirectToItems(true);
-  }
+          if (!response.ok) {
+            throw new Error('Failed to delete menu item');
+          }
+    
+          resolve();
+        } catch (error) {
+          reject(error);
+        }
+      });
+    
+      await toast.promise(deletionPromise, {
+        loading: 'Deleting Item...',
+        success: 'Item Deleted Successfully!',
+        error: 'Error in Deleting Item',
+      });
+    
+      setRedirectToItems(true);
+    }
+    
 
 
   if(status == "unauthenticated") {

@@ -12,9 +12,7 @@ import { useSession } from 'next-auth/react';
 
 
 
-
 function OrdersPage() {
-
 
 
     const { data: session, status } = useSession();
@@ -57,20 +55,19 @@ function OrdersPage() {
 
 
     useEffect(() => {
-        // Check if the user is an admin and adjust the API request accordingly
-        const url = isAdmin ? '/api/orders' : '/api/orders?myOrders=true';
-    
-        fetch(url)
-          .then((response) => response.json())
-          .then((orders) => {
-            setOrders(orders.reverse());
-            setProfileFetched(true);
-            console.log('Orders:', orders);
-          })
-          .catch((error) => {
-            console.error('Error fetching orders:', error);
-          });
-    }, [isAdmin]);
+        if (status === 'authenticated') {
+          fetch('/api/orders')
+            .then((response) => response.json())
+            .then((orders) => {
+              setOrders(orders.reverse());
+              setProfileFetched(true);
+            })
+            .catch((error) => {
+              console.error('Error fetching orders:', error);
+            });
+        }
+      }, [status]);
+      
 
  
 

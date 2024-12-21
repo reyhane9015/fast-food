@@ -10,10 +10,13 @@ import DeleteButton from '@/components/DeleteButton';
 import Image from 'next/image';
 import Input from './../../../components/Input';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 import withAuth from './../../../libs/withAuth';
 
 function CategoriesPage() {
+
+  const router = useRouter();
 
   const session = useSession();
   const status = session.status;
@@ -26,7 +29,7 @@ function CategoriesPage() {
 
   useEffect(() => {
     fetchCategories();
-  } , []);
+  },[]);
 
 
 
@@ -58,8 +61,8 @@ function CategoriesPage() {
         body: JSON.stringify(data)
       })
 
-      setCategoryName("");
       fetchCategories();
+      setCategoryName("");
       setEditedCategory(null);
 
       if(response.ok) {
@@ -107,7 +110,8 @@ function CategoriesPage() {
   }
 
   if(status == "unauthenticated") {
-    return redirect ("/login");
+    // return redirect ("/login");
+    router.push("/login");
   }
 
 
@@ -169,7 +173,7 @@ function CategoriesPage() {
                   >
                   
                     <div className="flex items-center gap-2">
-                      <Image src="/pizza.png" alt="pizza" width={60} height={60} className="block mx-auto" />
+                      <Image src="/pizza.png" alt="pizza" width={60} height={60} className="block mx-auto" priority/>
                       <span className="text-lg font-bold text-light-text dark:text-dark-text">{cat.name}</span>
                     </div>
 

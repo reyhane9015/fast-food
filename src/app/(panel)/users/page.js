@@ -9,6 +9,7 @@ import { useSession } from 'next-auth/react';
 import { dbTimeForHuman } from '@/libs/datatime';
 import Link from 'next/link';
 import Edit from '@/components/icons/Edit';
+import Image from 'next/image';
 
 import withAuth from './../../../libs/withAuth';
 
@@ -32,7 +33,7 @@ function UsersPage() {
                 setDataFetched(true);
             })
         })
-    },[])
+    },[]);
 
 
     const handleSearchChange = (e) => {
@@ -120,10 +121,17 @@ function UsersPage() {
                                                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-dark-SBackground">
                                                         <div className="flex">
                                                         <div className="flex-shrink-0 w-10 h-10">
-                                                            <img
+                                                            {/* <img
                                                             className="w-full h-full rounded-full"
                                                             src="/profile.png"
                                                             alt="profile"
+                                                            /> */}
+                                                            <Image
+                                                            className="w-full h-full rounded-full"
+                                                            src="/profile.png"
+                                                            alt="profile"
+                                                            width={500}
+                                                            height={500}
                                                             />
                                                         </div>
                                                         <div className="ml-3">

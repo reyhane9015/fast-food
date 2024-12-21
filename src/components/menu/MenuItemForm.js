@@ -25,12 +25,14 @@ function MenuItemForm({onSubmit , menuItem}) {
 
     // fetch all categories
     useEffect(() => {
-        fetch('/api/categories').then(res => {
-            res.json().then(categories => {
-              setCategories(categories);
-          })
-        })
-    },[]);
+        fetch('/api/categories')
+            .then(res => res.json())
+            .then(categories => {
+                setCategories(categories);
+            })
+            .catch(error => console.error('Failed to fetch categories:', error));
+    }, []);
+    
 
 
 

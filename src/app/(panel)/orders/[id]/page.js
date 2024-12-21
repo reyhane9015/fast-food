@@ -29,18 +29,27 @@ function OrderPage() {
   const{id} = useParams();
 
   useEffect(() => {
-    // setLoading(true);
-    fetch('/api/orders').then(res => {
-      res.json().then(data => {
-        const order = data.find(i => i._id == id);
+    const fetchOrderData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/orders');
+        if (!response.ok) {
+          throw new Error('Failed to fetch orders');
+        }
+        const data = await response.json();
+        const order = data.find(i => i._id === id);
         setOrder(order);
-        console.log("order is:" , order);
-        // setLoading(false);
-      })
-    })
- 
-  } , []);
+      } catch (error) {
+        console.error('Error fetching order:', error);
+        toast.error('Failed to fetch order data');
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchOrderData();
+  }, [id]);
+  
   if(redirectToOrders) {
     return redirect('/orders');
   }
@@ -58,19 +67,23 @@ function OrderPage() {
 
 
     // Delete Order
-     async function handleItemDelete() {
+    const handleItemDelete = async () => {
 
       const deletionPromise = new Promise(async(resolve, reject) => {
-         const response = await fetch('/api/orders', {
-           method: 'DELETE',
-           headers: {'Content-Type': 'application/json'},
-           body: JSON.stringify({_id: id})
-         })
-  
-         if (response.ok) {
-          resolve();
-        } else {
-          reject();
+        try {
+          const response = await fetch('/api/orders', {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({_id: id})
+          })
+   
+          if (response.ok) {
+           resolve();
+         } else {
+            reject('Error deleting order');
+          }
+        } catch(error) {
+          reject('Error deleting order');
         }
       })
   

@@ -27,22 +27,27 @@ function ProfilePage() {
 
 
     useEffect(() => {
-
-        setUserName(session.data?.user?.name);
-
-        fetch('/api/profile').then(response => {
-            response.json().then(data => {
-
-                console.log(data);
-
-                setUser(data);
-
-                setProfileFetched(true);
-
-                // setIsAdmin(data.isAdmin);
-            })
-        })
-    } , [status])
+        if (status === "authenticated") {
+            const fetchProfile = async () => {
+                try {
+                    const response = await fetch('/api/profile');
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch profile');
+                    }
+                    const data = await response.json();
+                    console.log(data);
+                    setUser(data);
+                    setProfileFetched(true);
+                } catch (error) {
+                    console.error('Error fetching profile:', error);
+                    toast.error('Error fetching profile');
+                    setProfileFetched(true);
+                }
+            };
+    
+            fetchProfile();
+        }
+    }, [status]);
 
 
     async function handleProfileInfoUpdate(e , data) {
@@ -73,12 +78,12 @@ function ProfilePage() {
 
     
 
-    // if(status == "loading" || !profileFetched) {
-    //     return <div 
-    //             className="text-center font-semibold text-primary bg-light-background dark:bg-dark-background text-2xl h-screen flex justify-center items-center">
-    //                 Loading...
-    //             </div>
-    // }
+    if(status == "loading" || !user) {
+        return <div 
+                className="text-center font-semibold text-primary bg-light-background dark:bg-dark-background text-2xl h-screen flex justify-center items-center">
+                    Loading...
+                </div>
+    }
 
     
 

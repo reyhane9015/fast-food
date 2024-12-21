@@ -34,7 +34,7 @@ function MenuItemsPage() {
 
     if(status == "unauthenticated") {
         return redirect ("/login");
-      }
+    }
 
 
 
