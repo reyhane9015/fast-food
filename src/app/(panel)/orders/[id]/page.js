@@ -150,10 +150,10 @@ function OrderPage() {
                           <div className="border-b-2">
                             {order.cartProducts && order.cartProducts.map(p =>
                               
-                                <div className="flex items-center justify-between mb-4 font-semibold text-xl text-gray-500">
+                                <div key={p._id} className="flex items-center justify-between mb-4 font-semibold text-xl text-gray-500">
                                     <p>{p.name}</p>
                                     <p className="text-sm">
-                                      {p.extras && p.extras.map(ex => <span>{ex.name} + {ex.price}, </span>)}
+                                      {p.extras && p.extras.map((ex,index)=> <span key={index}>{ex.name} + {ex.price}, </span>)}
                                     </p>
                                     {/* <div className="font-semibold text-primary">quantity: {p.quantity}</div> */}
                                 </div>
@@ -204,7 +204,7 @@ function OrderPage() {
                           </p>
 
                           {order.user && order.user.map(u => 
-                            <div className="flex flex-col gap-2">
+                            <div key={u._id} className="flex flex-col gap-2">
                               <p className="flex items-center justify-between">
                                 <span>Phone:</span>
                                 <span>{u.phone}</span>
