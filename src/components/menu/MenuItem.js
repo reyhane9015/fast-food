@@ -179,7 +179,7 @@ function MenuItem(menuItem) {
             
 
             
-              <FlyingButton src='/pizza.png' targetTop={'5%'} targetLeft={'80%'}>
+              {/* <FlyingButton src='/pizza.png' targetTop={'5%'} targetLeft={'80%'}> */}
                 <div 
                   onClick={handleAddToCart}
                   type="button"
@@ -187,7 +187,7 @@ function MenuItem(menuItem) {
                 >
                   Add to cart {selectedPrice}$
                 </div>
-              </FlyingButton>
+              {/* </FlyingButton> */}
              
 
 
