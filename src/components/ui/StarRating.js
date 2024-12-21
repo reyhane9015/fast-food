@@ -8,9 +8,9 @@ function StarRating({rating}) {
     <div className="flex items-center my-2">
     
       {[...Array(maxRating)].map((_, index) => {
+        
           const starValue = index + 1;
           const fill = starValue <= rating ? "#f8d617" : "none";
-
 
           return <Star key={index} fill={fill} />
           

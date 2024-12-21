@@ -142,7 +142,7 @@ function OrdersPage() {
                             <div className="font-semibold text-gray-500 flex gap-4 items-center whitespace-no-wrap">
                                 <div>
                                         {order?.cartProducts.map((p) => 
-                                            <p className="whitespace-nowrap">
+                                            <p key ={p._id} className="whitespace-nowrap">
                                                 {p.name}
                                             </p>
                                         )}
