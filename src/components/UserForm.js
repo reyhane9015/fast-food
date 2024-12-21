@@ -1,6 +1,6 @@
 "use client";
 
-import { useState ,useEffect } from 'react';
+import { useState ,useEffect , useMemo } from 'react';
 import Image from 'next/image';
 import AddressInputs from '@/components/AddressInputs';
 import { usePathname } from 'next/navigation';
@@ -30,11 +30,14 @@ function UserForm({user , onSave , isEditable = true}) {
 
 
 
-    const countriesWithCities = [
-        { _id: 1, name: 'Iran', cities: [{_id: 1, name: 'Tabriz'}, {_id: 2, name: 'Tehran'} , {_id: 3, name: 'Esfahan'}] },
-        { _id: 2 , name: 'Turkye', cities: [{_id: 3, name: 'Istanbul'}, {_id: 4, name: 'Izmir'}] },
-        { _id: 3 , name: 'Italy', cities: [{_id: 3, name: 'Milan'}, {_id: 4, name: 'Rome'}] },
-    ];
+    const countriesWithCities = useMemo(
+        () => [
+          { _id: 1, name: 'Iran', cities: [{ _id: 1, name: 'Tabriz' }, { _id: 2, name: 'Tehran' }, { _id: 3, name: 'Esfahan' }] },
+          { _id: 2, name: 'Turkey', cities: [{ _id: 3, name: 'Istanbul' }, { _id: 4, name: 'Izmir' }] },
+          { _id: 3, name: 'Italy', cities: [{ _id: 3, name: 'Milan' }, { _id: 4, name: 'Rome' }] },
+        ],
+        []
+      );
 
     const [cityOptions, setCityOptions] = useState([]);
 
@@ -48,7 +51,7 @@ function UserForm({user , onSave , isEditable = true}) {
         const selectedCountry = countriesWithCities.find(c => c.name === country);
         // console.log(selectedCountry);
         setCityOptions(selectedCountry ? selectedCountry.cities : []);
-    }, [country]);
+    }, [country , countriesWithCities]);
     
 
 

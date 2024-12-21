@@ -32,7 +32,7 @@ function AppProvider({children}) {
       setCartProducts(JSON.parse(savedCart));
     }
 
-  },[]);
+  },[ls]);
 
   const toggleTheme = () => {
     const newTheme = theme ==="light" ? "dark" : "light";

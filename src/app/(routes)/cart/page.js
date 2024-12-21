@@ -45,7 +45,7 @@ export default function CartPage() {
                 // setProfileFetched(true); 
             })
         })
-    } , [status]);
+    } , [status , session.data?.user?.name]);
 
 
 
