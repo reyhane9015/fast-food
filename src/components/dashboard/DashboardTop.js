@@ -17,7 +17,8 @@ function DashboardTop({todayIncome ,thisWeekIncome , thisMonthIncome , todayOrde
           <div>
 
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold">Today's Reviews</h2>
+              {/* <h2 className="text-xl font-semibold">Today's Reviews</h2> */}
+              <h2 className="text-xl font-semibold">Today&apos;s Reviews</h2>
               <Dollar />
             </div>
 
@@ -46,7 +47,9 @@ function DashboardTop({todayIncome ,thisWeekIncome , thisMonthIncome , todayOrde
           <div>
 
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold">This Week's  Reviews</h2>
+              {/* <h2 className="text-xl font-semibold">This Week's  Reviews</h2> */}
+              <h2 className="text-xl font-semibold">This Week&apos;s  Reviews</h2>
+              &apos;
               <Dollar />
             </div>
 
@@ -75,7 +78,8 @@ function DashboardTop({todayIncome ,thisWeekIncome , thisMonthIncome , todayOrde
           <div>
 
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold">This Month's  Reviews</h2>
+              {/* <h2 className="text-xl font-semibold">This Month's  Reviews</h2> */}
+              <h2 className="text-xl font-semibold">This Month&apos;s  Reviews</h2>
               <Dollar />
             </div>
 

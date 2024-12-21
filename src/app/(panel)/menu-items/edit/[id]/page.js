@@ -153,9 +153,7 @@ function EditMenuItemPage() {
           <div className="max-w-6xl m-auto pb-8">
             <div className="flex justify-between">
 
-              {/* <div className="max-w-[170px] flex justify-center border border-primary text-primary py-4 px-2 rounded-full">
-                <Link href="/menu-items">{'<<'} Back to All Items</Link>
-              </div> */}
+    
 
               <div className="w-[170px] mb-16">
                   <LinkPrimary href={"/menu-items/new"} title="Back to All Items" />

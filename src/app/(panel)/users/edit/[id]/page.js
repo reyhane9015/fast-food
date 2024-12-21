@@ -116,9 +116,7 @@ function EditUserPage() {
         <div>
           <div className="max-w-6xl m-auto flex justify-between">
 
-            {/* <div className="max-w-[170px] flex justify-center border border-primary text-primary py-4 px-2 rounded-full">
-            <Link href="/users">{'<<'} Back to All Users</Link>
-          </div> */}
+        
 
           <div className="w-[170px] mb-16">
               <LinkPrimary href={"/users"} title="Back to All Users" />
