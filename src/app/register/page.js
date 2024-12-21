@@ -115,7 +115,7 @@ function RegisterPage() {
 
             <button type="submit" disabled={creatingUser}>Register</button>
             
-            <div className="text-center my-4 text-gray-500">Already have an account? {' '} 
+            <div className="text-center my-4 text-gray-500">Already have an account?
                 <Link href="/login" className="underline">Login</Link>
             </div>
         </form>

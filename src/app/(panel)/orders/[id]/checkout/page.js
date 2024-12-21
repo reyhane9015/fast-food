@@ -216,7 +216,7 @@ function OrderPaymentPage() {
                   
           </form> 
           :
-          <div className="relative z-40 text-center text-lg text-gray-600 font-semibold">Please Login to continue? {' '} 
+          <div className="relative z-40 text-center text-lg text-gray-600 font-semibold">Please Login to continue?
             <Link href="/login" className="text-primary underline">Login</Link>
           </div>
         }

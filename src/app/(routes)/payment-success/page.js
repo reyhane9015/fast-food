@@ -76,7 +76,7 @@ export default function PaymentSuccessPage() {
             </div>
           </div>
       : 
-      <div className="relative z-40 text-center text-lg text-gray-600 font-semibold pt-36">Please Login to continue? {' '} 
+      <div className="relative z-40 text-center text-lg text-gray-600 font-semibold pt-36">Please Login to continue?
         <Link href="/login" className="text-primary underline">Login</Link>
       </div>
     }

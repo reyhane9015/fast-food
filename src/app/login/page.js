@@ -123,7 +123,7 @@ function LoginPage() {
 
             <button type="submit" disabled={loginInProgress}>Login</button>
 
-            <div className="text-center my-4 text-gray-500">Dont have an account? {' '} 
+            <div className="text-center my-4 text-gray-500">Dont have an account?
                 <Link href="/register" className="underline">Register</Link>
             </div>
         </form>

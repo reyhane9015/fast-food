@@ -168,7 +168,7 @@ function OrderPage() {
                         <div className="bg-primary text-white p-8 rounded-lg mb-4">
                           <p className="font-semibold mb-4">
                               <b className="text-black">
-                                {order.userEmail}{' '}
+                                {order.userEmail}
                               </b>
                               Card Information:
                           </p>
@@ -198,7 +198,7 @@ function OrderPage() {
 
                           <p className="font-semibold mb-4">
                             <b className="text-primary">
-                              {order.userEmail}{' '}
+                              {order.userEmail}
                             </b>
                             Address:
                           </p>
