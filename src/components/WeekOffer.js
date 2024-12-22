@@ -50,7 +50,7 @@ return (
                     }}
                     className="relative w-full lg:w-[75%] text-left">
                     <h1 className="text-2xl md:text-3xl tracking-wider font-semibold mb-4">
-                        Our <span className="text-primary">Specail Offer</span><br/> going onthis week
+                        Our <span className="text-primary">SPECIAL OFFER</span><br/> GOING ON TODAY
                     </h1>
                     
                     <p className="text-xl">

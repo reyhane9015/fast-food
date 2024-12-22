@@ -124,6 +124,9 @@ function OrdersPage() {
 
 
 
+    console.log(currentItems[0]);
+
+
   return (
     <section>
 
@@ -157,43 +160,141 @@ function OrdersPage() {
 
                 <div className="overflow-x-auto">
                     {currentItems ? (
-                        currentItems.map((order, index) => 
-                        <div key={order._id} className="bg-transparent text-light-text dark:text-dark-text p-4 my-2 flex gap-4 justify-between items-center min-w-full">
-                            <p className="border border-gray-200 px-2 rounded">{index + 1}</p>
-                            <p>{order.userEmail}</p>
-
-                            <div className="font-semibold text-gray-500 flex gap-4 items-center whitespace-no-wrap">
-                                <div>
-                                        {order?.cartProducts.map((p) => 
-                                            <p key ={p._id} className="whitespace-nowrap">
-                                                {p.name}
-                                            </p>
-                                        )}
-                                </div>
-                            </div>
-
-                                <div className="font-semibold text-primary text-lg">{order.totalPrice + 10}$</div>
-
-                                <div className="hidden md:block">
-                                    <p>{dbTimeForHuman(order.createdAt)}</p>
-                                </div>
-
-                            <div className={order.paid ? "p-2 rounded font-semibold text-white bg-green-400" :
-                                    "p-2 rounded font-semibold text-white bg-red-400"}
+                        <div className="mx-auto px-4 sm:px-8">
+                        <div className="py-8">
+                       
+                            <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+                                <div
+                                    className="inline-block min-w-full shadow-md rounded-lg overflow-hidden"
+        
                                 >
-                                    {order.paid ? <p>Paid</p> : <p>Failed</p>}
-                            </div>
+                                    <table className="min-w-full leading-normal">
+                                        <thead>
+                                            <tr>
+                                                <th
+                                                    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                                                >
+                                                    
+                                                </th>
+                                                <th
+                                                    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                                                >
+                                                    user name
+                                                </th>
+                                                <th
+                                                    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                                                >
+                                                    Email
+                                                </th>
+                                                <th
+                                                    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                                                >
+                                                    Items
+                                                </th>
+                                                <th
+                                                    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                                                >
+                                                    Order Time
+                                                </th>
+                                                <th
+                                                    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                                                >
+                                                    Price
+                                                </th>
+                                                <th
+                                                    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                                                >
+                                                    Status
+                                                </th>
+                                                <th
+                                                    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100"
+                                                ></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+        
+                                        {currentItems.map((order , index) => (
+                                            <tr key={order._id}>
 
-                            {isAdmin &&
-                                        <Link href={`orders/${order._id}`} >
-                                            <div className="p-2 whitespace-nowrap text-gray-500 border border-gray-500 rounded-md">
-                                                    show details 
-                                            </div>
-                                        </Link>
-                            }
-                            
+                                                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-dark-SBackground">
+                                                 <span className="bg-primary text-white p-2 rounded">{index + 1}</span>
+                                                </td>
+
+                                                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-dark-SBackground">
+                                                    <div className="flex">
+                                            
+                                                        <div className="ml-3">
+                                                            <p className="text-light-text dark:text-dark-text whitespace-no-wrap font-semibold text-lg">
+                                                                {order.userEmail.split("@")[0]}
+                                                            </p>
+                                                            <p className="text-gray-400 whitespace-no-wrap">female</p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-dark-SBackground">
+                                                    <p className="text-gray-500 whitespace-no-wrap">{order.userEmail}</p>
+                                                </td>
+
+                                               
+                                                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-dark-SBackground">
+                                                        {order?.cartProducts.map((p) => 
+                                                            <p key ={p._id} className="whitespace-nowrap">
+                                                                {p.name}
+                                                            </p>
+                                                        )}
+                                                </td>
+
+                                                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-dark-SBackground">
+                                                    <p className="text-light-text dark:text-dark-text whitespace-no-wrap">{dbTimeForHuman(order.createdAt)}</p>
+                                                </td>
+
+                                                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-dark-SBackground">
+                                                    <p className="text-light-text dark:text-dark-text whitespace-no-wrap text-lg font-bold text-primary">{order.totalPrice}$</p>
+                                                </td>
+
+                                          
+                                                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-dark-SBackground">
+                                                    <span
+                                                    className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
+                                                    >
+                                                    <span
+                                                        aria-hidden
+                                                        className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                                                    ></span>
+                                                    <span className="relative">online</span>
+                                                    </span>
+                                                </td>
+                                               
+
+                                                <td
+                                                    className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-right dark:bg-dark-SBackground"
+                                                >
+                                                    <button
+                                                    type="button"
+                                                    className="inline-block text-gray-500 hover:text-gray-700"
+                                                    >
+                                                     
+                                                    {isAdmin &&
+                                                        <Link href={`orders/${order._id}`} >
+                                                            <div className="p-2 whitespace-nowrap text-gray-500 border border-gray-500 rounded-md">
+                                                                    show details 
+                                                            </div>
+                                                        </Link>
+                                                    }
+                                                    </button>
+                                                </td>
+
+                                                
+                                            </tr>
+                                        ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                        )) : (
+                    </div>
+                        ) : (
                             <div className="text-center font-semibold text-primary text-lg">There are No orders yet</div>
                         )
                     }

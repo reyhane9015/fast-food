@@ -29,7 +29,7 @@ return (
                     }}
                     className="relative w-full lg:w-[75%] text-left">
                     <h1 className="text-2xl md:text-3xl tracking-wider font-semibold mb-4">
-                    GOOD FOOD, DRINK & <br/><span className="text-third">CREATE COMPONY</span>
+                    GOOD FOOD, DRINK & <br/><span className="text-third">ENJOY YOUR MEAL</span>
                     </h1>
                     
                     <p className="text-xl">
