@@ -61,7 +61,7 @@ function Header() {
       <div className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-12">
         <div className="flex gap-2 items-center">
           <Link className="text-primary font-semibold text-2xl" href="/">
-            <Image src="/fast-food-icons.png" width={'60'} height={'30'} alt="logo" 
+            <Image src="/fast-food-icons.png" width={'45'} height={'30'} alt="logo" 
              />
           </Link>
           <ThemeToggleButton />
