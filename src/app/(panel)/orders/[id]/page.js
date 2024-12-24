@@ -6,12 +6,14 @@ import Link from 'next/link';
 import UserTabs from '@/components/ui/UserTabs';
 import DeleteButton from '@/components/DeleteButton';
 import { toast } from 'react-hot-toast';
+import { dbTimeForHuman } from '@/libs/datatime';
 
 
 import withAuth from './../../../../libs/withAuth';
 import LinkPrimary  from '@/components/ui/LinkPrimary';
 import { CartContext } from '@/components/AppContext';
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 
 
 function OrderPage() {
@@ -25,8 +27,24 @@ function OrderPage() {
   const[redirectToOrders ,setRedirectToOrders] = useState(false);
   const[loading , setLoading] =useState(true);
 
+  const [categories, setCategories] = useState([]);
 
   const{id} = useParams();
+
+
+  useEffect(() => {
+    fetch('/api/categories')
+        .then((response) => response.json())
+        .then((categories) => {
+            setCategories(categories);
+            console.log(categories);
+        })
+        .catch((error) => {
+            console.error('Error fetching categories:', error);
+        });
+}, []);
+
+
 
   useEffect(() => {
     const fetchOrderData = async () => {
@@ -39,6 +57,9 @@ function OrderPage() {
         const data = await response.json();
         const order = data.find(i => i._id === id);
         setOrder(order);
+
+        console.log("orders are 2" , order);
+
       } catch (error) {
         console.error('Error fetching order:', error);
         toast.error('Failed to fetch order data');
@@ -53,17 +74,6 @@ function OrderPage() {
   if(redirectToOrders) {
     return redirect('/orders');
   }
-
-
-
-  // console.log("cartProducts: " , cartProducts);
-
-  // let total = 0;
-  // for (const p of cartProducts) {
-  //     total += cartProductPrice(p);
-  // }
-
-  
 
 
     // Delete Order
@@ -102,6 +112,26 @@ function OrderPage() {
     }
 
 
+    
+    const getCategoryImage = (categoryId) => {
+       const category = categories.find((cat) => cat._id === categoryId);
+
+        if(category?.name === "cat1") {
+          return <Image src="/plato.png" key={category?._id} alt={category?.name} width={80} height={80} className="block mx-auto" />;
+        } else if (category?.name === "cat2") {
+          return <Image src="/food2.png" key={category?._id} alt={category?.name} width={80} height={80} className="block mx-auto" />;
+        } else {
+          return <Image src="/food3.png" key={category?._id} alt={category?.name} width={80} height={80} className="block mx-auto" />;
+        }
+    }
+
+
+    let total = 0;
+    for (const p of cartProducts) {
+        total += cartProductPrice(p);
+    }
+
+
   
   return (
     <section>
@@ -137,55 +167,149 @@ function OrderPage() {
 
               <div>
                   {order &&  
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <div className="">
 
-                        <div className="border border-primary p-8 rounded-lg">
-                          <p className="font-semibold mb-4 text-light-text dark:text-dark-text">
-                            <b className="text-primary">
-                              {order.userEmail}
-                            </b>
-                            Order Products:
-                          </p>
+                        <div className="text-gray-500 mb-4 text-xl font-semibold">user: {order.userEmail}</div>
 
-                          <div className="border-b-2">
-                            {order.cartProducts && order.cartProducts.map(p =>
+                        <div className="border-2 border-gray-200 rounded-lg">
+                          {/* <div className="text-xl font-semibold mb-4">
+                              <span className="text-primary">Order Products</span>
+                          </div> */}
+
+
+
+
+                          {/* Table */}
+                          <div className="overflow-x-auto">
+                            <div
+                                className="inline-block min-w-full rounded-lg overflow-hidden"
+                            >
+                              <table className="min-w-full leading-normal">
+                              <thead>
+                                        <tr>
+                                            <th
+                                                className="px-8 py-3 border-b-2 border-gray-200 bg-gray-100 dark:bg-dark-SBackground text-left text-md font-semibold text-light-text dark:text-dark-text uppercase tracking-wider"
+                                            >
+                                            
+                                            </th>
+                                            <th
+                                                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 dark:bg-dark-SBackground text-left text-md font-semibold text-light-text dark:text-dark-text uppercase tracking-wider"
+                                            >
+                                            Image
+                                            </th>
+                                            <th
+                                                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 dark:bg-dark-SBackground text-left text-md font-semibold text-light-text dark:text-dark-text uppercase tracking-wider"
+                                            >
+                                                Name
+                                            </th>
+                                            <th
+                                                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 dark:bg-dark-SBackground text-left text-md font-semibold text-light-text dark:text-dark-text uppercase tracking-wider"
+                                            >
+                                                Quantity
+                                            </th>
+                                            <th
+                                                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 dark:bg-dark-SBackground text-left text-md font-semibold text-light-text dark:text-dark-text uppercase tracking-wider"
+                                            >
+                                            Size
+                                            </th>
+                                            <th
+                                                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 dark:bg-dark-SBackground text-left text-md font-semibold text-light-text dark:text-dark-text uppercase tracking-wider"
+                                            >
+                                                Extras
+                                            </th>
                               
-                                <div key={p._id} className="flex items-center justify-between mb-4 font-semibold text-xl text-gray-500">
-                                    <p>{p.name}</p>
-                                    <p className="text-sm">
-                                      {p.extras && p.extras.map((ex,index)=> <span key={index}>{ex.name} + {ex.price}, </span>)}
-                                    </p>
-                                    {/* <div className="font-semibold text-primary">quantity: {p.quantity}</div> */}
-                                </div>
-                            
-                              )}
+                                            <th
+                                                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 dark:bg-dark-SBackground text-left text-md font-semibold text-light-text dark:text-dark-text uppercase tracking-wider"
+                                            >
+                                                Total price
+                                            </th>
+                                            <th
+                                                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 dark:bg-dark-SBackground text-left text-md font-semibold text-light-text dark:text-dark-text uppercase tracking-wider"
+                                            >
+                                                Time
+                                            </th>
+                                    
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                      {order.cartProducts && order.cartProducts.map((p , index) => {
+
+                                          return (
+                                            <tr key={p._id} className="font-semibold text-center text-gray-500 dark:text-dark-text border-dashed border-b-2 border-b-gray-300">
+
+                                              <td className="">{index + 1}</td>
+                                              <td className="py-4">{getCategoryImage(p.category)}</td>
+                                              <td className="">{p.name}</td>
+                                              <td className="">{p.quantity}</td>
+                                             
+                                              <td className="">
+                                                {p.size &&   
+                                                    <div>
+                                                        <span className="whitespace-nowrap text-sm">{p.size?.name}</span>
+                                                        <span className="whitespace-nowrap text-sm"> + {p.size?.price}$</span>
+                                                    </div>
+                                                }
+                                              </td>
+                                             
+                                              <td className="">
+                                                  {p.extras && p.extras.length > 0 ?
+                                                    <div>
+                                                        {p.extras.map((ex,index)=> (
+                                                          <p key={index}>{ex.name} + {ex.price}$</p>
+                                                        ))}
+                                                    </div>
+                                                    :
+                                                    <div className="">
+                                                      .................
+                                                    </div>
+                                                  }
+                                              </td>
+
+                                              <td className="">{cartProductPrice(p)}$</td>
+                                              
+                                              <td className="text-sm">{dbTimeForHuman(order.createdAt)}</td>
+                                              
+                                            </tr>
+                                        )})
+                                      }
+
+                                    </tbody>
+                              </table>
+                            </div>
                           </div>
 
-                            <div className="text-right font-semibold py-8 text-2xl text-light-text dark:text-dark-text">Total Price: {order.totalPrice + 10}$ </div>
+
+                          <div className="text-right font-semibold p-8 text-2xl text-primary">
+                            Total Price(products + delivery): {order.totalPrice + 10}$
+                          </div>
+
                         </div>
 
-                      <div>
-                        <div className="bg-primary text-white p-8 rounded-lg mb-4">
-                          <p className="font-semibold mb-4">
-                              <b className="text-black">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
+
+                        <div className="p-8 rounded-lg dark:border dark:border-bg-primary bg-gray-100 dark:bg-dark-background">
+                          <p className="text-primary text-xl font-semibold mb-4 text-light-text dark:text-dark-text">
+                              {/* <b className="text-black">
                                 {order.userEmail}
-                              </b>
+                              </b> */}
                               Card Information:
                           </p>
                           {order.cardInfo && 
                             <div className="">
-                              <p className="text-center mb-4">
-                                <div className="font-semibold">Card Number</div>
-                                <div>{order.cardInfo.cardNumber}</div>
-                              </p>
+                              <div className="text-center mb-4">
+                                <p className="font-semibold text-lg text-gray-500">Card Number</p>
+                                <p>{order.cardInfo.cardNumber}</p>
+                              </div>
 
                               <div className="flex px-4 justify-between">
                                 <p className="flex gap-2 items-center justify-between">
-                                  <span className="font-semibold">Card Expiry Date:</span>
+                                  <span className="font-semibold text-lg text-gray-500">Card Expiry Date:</span>
                                   <span>{order.cardInfo.expiryDate}</span>
                                 </p>
                                 <p className="flex gap-2 items-center justify-between">
-                                  <span className="font-semibold">Cvv:</span>
+                                  <span className="font-semibold text-lg text-gray-500">Cvv:</span>
                                   <span>{order.cardInfo.cvv}</span>
                                 </p>
                               </div>
@@ -194,30 +318,29 @@ function OrderPage() {
                           }
                         </div>
 
-                        <div className="bg-gray-100 p-8 rounded-lg">
-
-                          <p className="font-semibold mb-4">
-                            <b className="text-primary">
+                        <div className="p-8 rounded-lg dark:border dark:border-bg-primary bg-gray-100 dark:bg-dark-background">
+                          <p className="text-primary text-xl font-semibold mb-4 text-light-text dark:text-dark-text">
+                            {/* <b className="text-primary">
                               {order.userEmail}
-                            </b>
+                            </b> */}
                             Address:
                           </p>
 
                           {order.user && order.user.map(u => 
                             <div key={u._id} className="flex flex-col gap-2">
-                              <p className="flex items-center justify-between">
+                              <p className="flex items-center justify-between font-semibold text-lg text-gray-500">
                                 <span>Phone:</span>
                                 <span>{u.phone}</span>
                               </p>
-                              <p className="flex items-center justify-between">
+                              <p className="flex items-center justify-between font-semibold text-lg text-gray-500">
                                 <span>Postal Code:</span>
                                 <span>{u.postalCode}</span>
                               </p>
-                              <p className="flex items-center justify-between">
+                              <p className="flex items-center justify-between font-semibold text-lg text-gray-500">
                                 <span>City:</span>
                                 <span>{u.city}</span>
                               </p>
-                              <p className="flex items-center justify-between">
+                              <p className="flex items-center justify-between font-semibold text-lg text-gray-500">
                                 <span>Country:</span>
                                 <span>{u.country}</span>
                               </p>

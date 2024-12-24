@@ -6,15 +6,19 @@ const ExtraPriceSchema = new Schema({
     price: Number
 })
 
+
 const CartProductSchema = new Schema({
     name: {type: String , required: true},
     description: {type: String},
     basePrice: {type: Number},
     ratings: {type: Number, default: 0, min: 0, max: 5},
     sizes: {type: [ExtraPriceSchema]},
+    size: { name: String , price: Number},
     extraItems: {type: [ExtraPriceSchema]},
+    extras:{type: [ExtraPriceSchema]},
     category: {type: mongoose.Types.ObjectId},
-    freeShipping: {type: Boolean , default: false}
+    freeShipping: {type: Boolean , default: false},
+    quantity: {type:Number}
 });
 
 const CardInfoSchema = new Schema({

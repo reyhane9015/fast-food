@@ -10,11 +10,16 @@ import { useSession } from 'next-auth/react';
 import ChevronLeft from '@/components/icons/ChevronLeft';
 import ChevronRight from '@/components/icons/ChevronRight';
 
+import { CartContext } from './../../../components/AppContext';
+
 // import withAuth from './../../../libs/withAuth';
 
 
 
 function OrdersPage() {
+
+
+    const { cartProducts } = useContext(CartContext);
 
 
     const { data: session, status } = useSession();
@@ -27,6 +32,7 @@ function OrdersPage() {
     const[profileFetched , setProfileFetched] = useState(false);
 
     const [currentPage, setCurrentPage] = useState(1);
+
 
     // useEffect(() => {
        
@@ -63,6 +69,9 @@ function OrdersPage() {
             .then((orders) => {
               setOrders(orders.reverse());
               setProfileFetched(true);
+
+              console.log("orders are" , orders);
+
             })
             .catch((error) => {
               console.error('Error fetching orders:', error);
@@ -124,7 +133,9 @@ function OrdersPage() {
 
 
 
-    console.log(currentItems[0]);
+    // console.log(currentItems[0]);
+
+
 
 
   return (
@@ -201,11 +212,20 @@ function OrdersPage() {
                                                 >
                                                     Price
                                                 </th>
+
+                                                {/* 
                                                 <th
                                                     className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
                                                 >
-                                                    Status
+                                                    User Address
+                                                </th> */}
+
+                                                <th
+                                                    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                                                >
+                                                    Order Status
                                                 </th>
+
                                                 <th
                                                     className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100"
                                                 ></th>
@@ -242,11 +262,12 @@ function OrdersPage() {
                                                             <p key ={p._id} className="whitespace-nowrap">
                                                                 {p.name}
                                                             </p>
+                                                            // {p.category === categories._id && <p>{category.name}</p>}
                                                         )}
                                                 </td>
 
                                                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-dark-SBackground">
-                                                    <p className="text-light-text dark:text-dark-text whitespace-no-wrap">{dbTimeForHuman(order.createdAt)}</p>
+                                                    <p className="text-gray-500 whitespace-no-wrap">{dbTimeForHuman(order.createdAt)}</p>
                                                 </td>
 
                                                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-dark-SBackground">
@@ -254,15 +275,21 @@ function OrdersPage() {
                                                 </td>
 
                                           
+                                                {/* <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-dark-SBackground">
+                                                    <p className="text-gray-500 whitespace-no-wrap">
+                                                        {order.user[0].country} , {order.user[0].city}
+                                                    </p>
+                                                </td> */}
+
                                                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-dark-SBackground">
                                                     <span
-                                                    className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
+                                                    className="relative inline-block px-3 py-1 font-semibold leading-tight"
                                                     >
                                                     <span
                                                         aria-hidden
-                                                        className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                                                        className={order.paid ? "absolute inset-0 opacity-50 rounded-full bg-green-200" : "absolute inset-0 opacity-50 rounded-full bg-red-200"}
                                                     ></span>
-                                                    <span className="relative">online</span>
+                                                    <span className={order.paid ? "relative text-green-800" : "relative text-red-800"}>{order.paid ? "Success" : "Faild"}</span>
                                                     </span>
                                                 </td>
                                                
@@ -278,7 +305,7 @@ function OrdersPage() {
                                                     {isAdmin &&
                                                         <Link href={`orders/${order._id}`} >
                                                             <div className="p-2 whitespace-nowrap text-gray-500 border border-gray-500 rounded-md">
-                                                                    show details 
+                                                                    order details 
                                                             </div>
                                                         </Link>
                                                     }

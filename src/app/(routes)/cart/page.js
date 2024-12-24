@@ -96,7 +96,8 @@ export default function CartPage() {
                 body: JSON.stringify({user , cartProducts , totalPrice: total})
             })
             const result = await response.json();
-            // console.log("result is:" , result);
+
+            console.log("result is:" , result);
 
             // console.log(result._id);
 
@@ -237,6 +238,8 @@ export default function CartPage() {
 
                                             // console.log(productKey);
 
+                                            console.log("cartProducts:" , cartProducts);
+
                                             
                                             return (
                                             <tr key={productKey} className="hover:bg-gray-200 hover:cursor-pointer border-dashed border-b-2 border-b-gray-300 dark:hover:bg-dark-background">
@@ -299,8 +302,8 @@ export default function CartPage() {
                                                         value={product.quantity} 
                                                         readOnly
                                                         onChange={(e) =>{
-                                                             console.log('product id:', product.id); 
-                                                             console.log('input value:', e.target.value);
+                                                            //  console.log('product id:', product.id); 
+                                                            //  console.log('input value:', e.target.value);
                                                              handleQuantityChange(product.id,e.target.value)}
                                                             } 
                                                     />
