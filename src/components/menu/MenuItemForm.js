@@ -8,7 +8,7 @@ import InputTextarea from "../InputTextarea";
 
 
 
-function MenuItemForm({onSubmit , menuItem}) {
+function MenuItemForm({onSubmit , menuItem , category, setCategory }) {
 
     const[name ,setName] = useState(menuItem?.name || "");
     const[description , setDescription] = useState(menuItem?.description || "");
@@ -16,7 +16,7 @@ function MenuItemForm({onSubmit , menuItem}) {
     const[sizes , setSizes] = useState(menuItem?.sizes || []);
     const[extraItems , setextraItems] = useState(menuItem?.extraItems || []);
     const[categories , setCategories] = useState([]);
-    const[category , setCategory] = useState(menuItem?.category || "");
+    // const[category , setCategory] = useState(menuItem?.category || {});
     const[ratings , setRatings] = useState(menuItem?.ratings || 0);
     const [freeShipping , setFreeShipping] = useState(menuItem?.freeShipping || false);
 
@@ -29,12 +29,22 @@ function MenuItemForm({onSubmit , menuItem}) {
             .then(res => res.json())
             .then(categories => {
                 setCategories(categories);
+
+                const selectedCategory = categories.find(cat => cat._id === menuItem.category);
+                if (selectedCategory) {
+                    setCategory(selectedCategory);
+                }
+                
+                
             })
             .catch(error => console.error('Failed to fetch categories:', error));
     }, []);
+
+
+
+    console.log("selected cat: " , category);
+
     
-
-
 
 
   return (
@@ -55,13 +65,15 @@ function MenuItemForm({onSubmit , menuItem}) {
 
             <InputSelect 
                 label={"Item Category"}
-                value={category}
-                onChange={(e)=> setCategory(e.target.value)}
+                value={category ? category.name : ""}
+                onChange={(e) => setCategory(e.target.value)}
                 optionaLabel={"Select a category"}
                 optionItems ={categories}
+                isSaving={isSaving}
+                isEditable={!isSaving}
             />
 
-{/* 
+            {/* 
             <Input 
                 type={"text"}
                 label={"Item Description"} 
@@ -76,6 +88,8 @@ function MenuItemForm({onSubmit , menuItem}) {
                placeholder={"Item Description"} 
                value={description} 
                onChange={(e) => setDescription(e.target.value)}
+                isSaving={isSaving}
+                isEditable={!isSaving}
             />
 
             <Input 

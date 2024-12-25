@@ -6,7 +6,7 @@ import { feautersVariants } from "../utils/animation";
 
 function CustomersOpinions() {
   return (
-    <div className="relative z-40 max-w-6xl mx-auto my-24">
+    <div className="relative z-40 max-w-6xl mx-auto my-24 overflow-hidden">
 
         <div className="grid gap-6 grid-cols-1 md:grid-cols-4 md:grid-rows-2">
 

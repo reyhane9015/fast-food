@@ -126,6 +126,15 @@ function LoginPage() {
             <div className="text-center my-4 text-gray-500">Dont have an account?
                 <Link href="/register" className="underline">Register</Link>
             </div>
+
+
+            <div className="font-semibold text-gray-500">
+                <p>Simple user with Admin Role</p>
+                <div>
+                    <p>Email: Admin1@yahoo.com</p>
+                    <p>Password: 4321</p>
+                </div>
+            </div>
         </form>
 
 

@@ -26,22 +26,11 @@ function EditMenuItemPage() {
   const[redirectToItems , setRedirectToItems] = useState(false);
   const[loading , setLoading] =useState(true);
 
+  const [category, setCategory] = useState({});
+
+
   const{id} = useParams();
 
-
-  // useEffect(() => {
-  //   setLoading(true);
-  //     fetch('/api/menu-items').then(res => {
-  //         res.json().then(data => {
-  //             const item = data.find(i => i._id == id);
-  //             // setName(item.name);
-  //             // setDescription(item.description);
-  //             // setBasePrice(item.basePrice);
-  //             setMenuItem(item);
-  //             setLoading(false);
-  //         })
-  //     })
-  // },[menuItem]);
   
   useEffect(() => {
     setLoading(true);
@@ -51,6 +40,11 @@ function EditMenuItemPage() {
     .then(data => {
       const item = data.find(i => i._id == id);
       setMenuItem(item);
+      
+      setCategory(item.category);
+
+      console.log("menu Item is" , item);
+
       setLoading(false);
     })
     .catch(error => {
@@ -60,39 +54,48 @@ function EditMenuItemPage() {
   },[id]);
 
 
-    
 
-
-
-  // Edit and Add MenuItems
+  // Edit MenuItems
   const handleFormSubmit = async(e,data) => {
     e.preventDefault();
+
+    console.log("Sending data:", { ...data,category: category, _id: id });
+
+
+    if (!data) {
+      console.error('Form data is undefined');
+      return;
+    }
 
     setIsSaving(true);
 
     try {
-        const savingPromise = new Promise(async(resolve, reject) => {
-        const response = await fetch('/api/menu-items' , {
-                method:'PUT',
+      const savingPromise = new Promise(async(resolve, reject) => {
+      const response = await fetch('/api/menu-items' , {
+              method:'PUT',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({...data, _id: id}),
-            })
+                body: JSON.stringify({...data, category: category, _id: id}),
+         })
 
 
-            if(response.ok) {
-                resolve();
-            } else {
-                reject();
-            }
-            setIsSaving(false);
+        console.log('API Response Edit page:', response);
+
+        if(response.ok) {
+          resolve();
+        } else {
+            reject();
+          } 
+
       })
       await toast.promise(savingPromise , {
-            loading: 'Saving...',
-            success: 'Item Saved Successfully...',
-            error: 'Error In Saving...'
+            loading: 'Editing...',
+            success: 'Item edited Successfully!',
+            error: 'Error In Editing!'
         })
 
-      setRedirectToItems(true);
+        setIsSaving(false);
+        setRedirectToItems(true);
+
     } catch(error) {
       console.error('Error in handleFormSubmit:', error);
       toast.error('Error saving item.');
@@ -145,6 +148,11 @@ function EditMenuItemPage() {
 
 
 
+
+
+  console.log("cat from edit is" , category);
+
+
   return (
     <section>
 
@@ -167,7 +175,9 @@ function EditMenuItemPage() {
 
 
         
-            {menuItem !== null && <MenuItemForm onSubmit={handleFormSubmit} menuItem={menuItem} /> }
+            {menuItem !== null && <MenuItemForm onSubmit={handleFormSubmit} menuItem={menuItem}
+              category={category} setCategory={setCategory} isSaving={isSaving} />
+            }
 
           </div>
         }

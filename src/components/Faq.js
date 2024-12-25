@@ -14,7 +14,7 @@ function Faq() {
 
         <SectionHeader subHeader={'Our'} mainHeader={'FAQ'} />
 
-        <div className="max-w-2xl mx-auto space-y-4 lg:space-y-6">
+        <div className="max-w-2xl mx-auto overflow-hidden space-y-4 lg:space-y-6">
             {faqData.map((item, index) => (
                 <motion.div
                     initial={{

@@ -1,7 +1,7 @@
 "use client";
 
 import UserTabs from '@/components/ui/UserTabs';
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import { toast } from 'react-hot-toast';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
@@ -24,37 +24,49 @@ function NewMenuItemPage() {
     const[redirectToItems , setRedirectToItems] = useState(false);
     const[loading , setLoading] =useState(true);
 
+    const [category, setCategory] = useState({});
 
 
     // Add New MenuItems
     async function handleFormSubmit(e, data) {
         e.preventDefault();
 
+        console.log("Sending data:", data);
+
         setIsSaving(true);
         // setLoading(true);
      
-        const savingPromise = new Promise(async(resolve, reject) => {
-            const response = await fetch('/api/menu-items' , {
-                method:'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data),
+        try {
+            const savingPromise = new Promise(async(resolve, reject) => {
+                const response = await fetch('/api/menu-items' , {
+                    method:'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ ...data, category: category?._id }),
+                })
+
+                console.log('API Response New Page:', response);
+
+                if(response.ok) {
+                    resolve();
+                } else {
+                    reject();
+                }
+            })
+            await toast.promise(savingPromise , {
+                loading: 'Creating...',
+                success: 'Item Created Successfully!',
+                error: 'Error In Creating!'
             })
 
-            if(response.ok) {
-                resolve();
-            } else {
-                reject();
-            }
-            setIsSaving(false);
-        })
-        await toast.promise(savingPromise , {
-            loading: 'Saving...',
-            success: 'Item Saved Successfully...',
-            error: 'Error In Saving...'
-        })
+            setLoading(false);
+            setRedirectToItems(true);
 
-        // setLoading(false);
-        setRedirectToItems(true);
+        }catch(error) {
+            console.error('Error in handleFormSubmit:', error);
+            toast.error('Error saving item.');
+          } finally {
+            setIsSaving(false);
+          }
     }
 
 
@@ -65,6 +77,9 @@ function NewMenuItemPage() {
     if(status == "unauthenticated") {
         return redirect ("/login");
       }
+
+
+      console.log("cat from new is" , category);
 
 
 
@@ -94,7 +109,7 @@ function NewMenuItemPage() {
                 </div>
 
             
-                <MenuItemForm onSubmit={handleFormSubmit} />
+                <MenuItemForm onSubmit={handleFormSubmit} category={category} setCategory={setCategory} />
 
             </div>
 

@@ -60,11 +60,15 @@ function Header() {
     <header className={scrolled ? "fixed top-0 left-0 w-full py-4 bg-white dark:bg-dark-SBackground shadow-lg z-50" : "absolute top-0 left-0 w-full py-4 bg-transparent z-50"}>  
       <div className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-12">
         <div className="flex gap-2 items-center">
-          <Link className="text-primary font-semibold text-2xl" href="/">
-            <Image src="/fast-food-icons.png" width={'45'} height={'30'} alt="logo" 
-             />
-          </Link>
+          <div className="w-[45px] h-[30px]">
+            <Link className="text-primary font-semibold text-2xl" href="/">
+              <Image src="/fast-food-icons.png" width={'45'} height={'30'} alt="logo" 
+              />
+            </Link>
+          </div>
+
           <ThemeToggleButton />
+          
         </div>
 
 
@@ -104,7 +108,7 @@ function Header() {
                       Hi,{userName}
                     </div>
                 </Link>
-                <button onClick={() => signOut()} className="bg-primary rounded-full text-white px-8 py-2 hidden lg:block">
+                <button onClick={() => signOut({ callbackUrl: '/' })} className="bg-primary rounded-full text-white px-8 py-2 hidden lg:block">
                   Logout
                 </button>
               </>
@@ -112,8 +116,8 @@ function Header() {
 
             {status === "unauthenticated" && (
               <>
-                <Link className="text-primary px-8 py-2 border-2 border-primary rounded-full" href="/login">Login</Link>
-                <Link className="bg-primary rounded-full text-white px-8 py-2" href="/register">Register</Link>
+                <Link className="text-primary px-4 py-2 border-2 border-primary rounded-full" href="/login">Login</Link>
+                <Link className="bg-primary rounded-full text-white px-4 py-2 hidden sm:block" href="/register">Register</Link>
               </>
             )}
 
@@ -126,42 +130,45 @@ function Header() {
 
 
 
-        {/* Mobile Menu */}
-        <div className="fixed bottom-0 left-0 w-full md:hidden pt-4 bg-white dark:bg-dark-SBackground shadow-lg z-50">
-          <div className="max-w-6xl mx-auto text-sm flex items-center justify-between px-4 sm:px-6 lg:px-12">
-            <Link href="/" 
-                className={`hover:text-primary  ${path === "/" ? "text-primary border-b-2 border-primary" : "text-gray-600"}`}
-              >
-                Home
-              </Link>
-              <Link href="/menu" 
-                className={`hover:text-primary py-4 ${path.includes("/menu") ? "text-primary border-b-2 border-primary" : "text-gray-600" }`}
-              >
-                Menu
-              </Link>
-              <Link href="/about-us" 
-                className={`hover:text-primary py-4 ${path === "/about-us" ? "text-primary border-b-2 border-primary" : "text-gray-600" }`}
-              >
-                About Us
-              </Link>
-              <Link href="/contact-us" 
-                className={`hover:text-primary py-4 ${path === "/contact-us" ? "text-primary border-b-2 border-primary" : "text-gray-600" }`}
-              >
-                Contact Us
-              </Link>
+              {/* Mobile Menu */}
+              <div className="fixed bottom-0 left-0 w-full md:hidden pt-4 bg-white dark:bg-dark-SBackground shadow-lg z-50">
+                <div className="max-w-6xl mx-auto text-sm flex items-center justify-between px-4 sm:px-6 lg:px-12">
+                  <Link href="/" 
+                      className={`hover:text-primary  ${path === "/" ? "text-primary border-b-2 border-primary" : "text-gray-600"}`}
+                    >
+                      Home
+                    </Link>
+                    <Link href="/menu" 
+                      className={`hover:text-primary py-4 ${path.includes("/menu") ? "text-primary border-b-2 border-primary" : "text-gray-600" }`}
+                    >
+                      Menu
+                    </Link>
+                    <Link href="/about-us" 
+                      className={`hover:text-primary py-4 ${path === "/about-us" ? "text-primary border-b-2 border-primary" : "text-gray-600" }`}
+                    >
+                      About Us
+                    </Link>
+                    <Link href="/contact-us" 
+                      className={`hover:text-primary py-4 ${path === "/contact-us" ? "text-primary border-b-2 border-primary" : "text-gray-600" }`}
+                    >
+                      Contact Us
+                    </Link>
 
-              <div 
-                className={"text-gray-600 hover:text-primary py-4"}
-                onClick={() => signOut()}
-              >
-            
-                  Logout
-              
+                    {status === "authenticated" && (
+                      <div 
+                        className={"text-gray-600 hover:text-primary py-4"}
+                        onClick={() => signOut({ callbackUrl: '/' })}
+                      >
+                    
+                        Logout
+                      
+                      </div>
+                    )}
+                    
+
+                
+                </div>
               </div>
-
-           
-          </div>
-        </div>
 
 
           </div>

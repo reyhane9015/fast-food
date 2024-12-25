@@ -291,25 +291,22 @@ function OrderPage() {
 
                         <div className="p-8 rounded-lg dark:border dark:border-bg-primary bg-gray-100 dark:bg-dark-background">
                           <p className="text-primary text-xl font-semibold mb-4 text-light-text dark:text-dark-text">
-                              {/* <b className="text-black">
-                                {order.userEmail}
-                              </b> */}
                               Card Information:
                           </p>
                           {order.cardInfo && 
                             <div className="">
-                              <div className="text-center mb-4">
-                                <p className="font-semibold text-lg text-gray-500">Card Number</p>
+                              <div className="text-center mb-4 font-semibold text-lg text-gray-500">
+                                <p className="">Card Number</p>
                                 <p>{order.cardInfo.cardNumber}</p>
                               </div>
 
-                              <div className="flex px-4 justify-between">
-                                <p className="flex gap-2 items-center justify-between">
-                                  <span className="font-semibold text-lg text-gray-500">Card Expiry Date:</span>
+                              <div className="flex px-4 justify-between font-semibold text-lg text-gray-500">
+                                <p className="flex gap-2 items-center justify-between font-semibold text-lg text-gray-500">
+                                  <span className="">Card Expiry Date:</span>
                                   <span>{order.cardInfo.expiryDate}</span>
                                 </p>
-                                <p className="flex gap-2 items-center justify-between">
-                                  <span className="font-semibold text-lg text-gray-500">Cvv:</span>
+                                <p className="flex gap-2 items-center justify-between font-semibold text-lg text-gray-500">
+                                  <span className="">Cvv:</span>
                                   <span>{order.cardInfo.cvv}</span>
                                 </p>
                               </div>
@@ -320,9 +317,6 @@ function OrderPage() {
 
                         <div className="p-8 rounded-lg dark:border dark:border-bg-primary bg-gray-100 dark:bg-dark-background">
                           <p className="text-primary text-xl font-semibold mb-4 text-light-text dark:text-dark-text">
-                            {/* <b className="text-primary">
-                              {order.userEmail}
-                            </b> */}
                             Address:
                           </p>
 

@@ -128,7 +128,7 @@ function MenuItem(menuItem) {
         >
           <div 
             onClick={(e) => e.stopPropagation()}
-            className="bg-light-background dark:bg-dark-SBackground p-4 rounded-lg w-2/5"
+            className="bg-light-background dark:bg-dark-SBackground p-4 rounded-lg w-4/5 sm:w-2/5"
           >
 
             <div className="overflow-y-scroll p-2" style={{maxHeight:'calc(100vh - 40px)'}}>
@@ -180,13 +180,12 @@ function MenuItem(menuItem) {
 
             
               {/* <FlyingButton src='/pizza.png' targetTop={'5%'} targetLeft={'80%'}> */}
-                <div 
+                <button
                   onClick={handleAddToCart}
-                  type="button"
-                  className="mx-auto mt-4 bg-primary text-white rounded-full py-4 px-2 sticky bottom-2"
+                  className="mx-auto text-center mt-4 bg-primary text-white rounded-full py-4 px-2 sticky bottom-2 font-semibold"
                 >
                   Add to cart {selectedPrice}$
-                </div>
+                </button>
               {/* </FlyingButton> */}
              
 

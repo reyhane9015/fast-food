@@ -15,7 +15,7 @@ const withAuth = (WrappedComponent) => {
         fetch('/api/profile')
           .then((response) => response.json())
           .then((data) => {
-            console.log('withAuth data is:', data);
+            // console.log('withAuth data is:', data);
             if (data.admin) {
               setIsAdmin(true);
             } else {
