@@ -9,6 +9,7 @@ import ShoppingCart from "../icons/ShoppingCart";
 import ThemeToggleButton from "../ui/ThemeToggleButton";
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { motion } from "framer-motion";
 
 function Header() {
 
@@ -108,16 +109,37 @@ function Header() {
                       Hi,{userName}
                     </div>
                 </Link>
-                <button onClick={() => signOut({ callbackUrl: '/' })} className="bg-primary rounded-full text-white px-8 py-2 hidden lg:block">
-                  Logout
-                </button>
+
+                <motion.div 
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                >
+                  <button onClick={() => signOut({ callbackUrl: '/' })} className="bg-primary rounded-full text-white px-8 py-2 hidden lg:block">
+                    Logout
+                  </button>
+                </motion.div>
+
               </>
             )}
 
             {status === "unauthenticated" && (
               <>
-                <Link className="text-primary px-4 py-2 border-2 border-primary rounded-full" href="/login">Login</Link>
-                <Link className="bg-primary rounded-full text-white px-4 py-2 hidden sm:block" href="/register">Register</Link>
+               <motion.div 
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                >
+                  <Link className="text-primary px-4 py-2 border-2 border-primary rounded-full" href="/login">Login</Link>
+                </motion.div>
+
+                <motion.div 
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                >
+                  <Link className="bg-primary rounded-full text-white px-4 py-2 hidden sm:block" href="/register">Register</Link>
+                </motion.div>
               </>
             )}
 

@@ -213,7 +213,7 @@ function DashboardPage() {
       return [item, percentage.toFixed(2)]; // Return item and rounded percentage to 2 decimal places
     });
 
-    console.log("salescount percentages:" , salesCountPercentageArray);
+    // console.log("salescount percentages:" , salesCountPercentageArray);
 
     setItemSalesCountPercentage(salesCountPercentageArray);
 

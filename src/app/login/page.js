@@ -21,7 +21,11 @@ function LoginPage() {
 
 
 
-    // Validation
+
+    async function handleFormSubmit(e) {
+
+
+            // Validation
     const validateEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
@@ -34,32 +38,21 @@ function LoginPage() {
     return numberCount >= 3;
     };
 
-
-    async function handleFormSubmit(e) {
+    
         e.preventDefault();
 
 
 
-        if (email === null || email === "") {
-            toast.error("Please enter an Email");
-            return;
-        }
-        if (!validateEmail(email)) {
-            toast.error("Invalid email address");
+        if (email === null || email === "" || !validateEmail(email)) {
+            toast.error("Please enter a valid Email");
             return;
         }
 
-        if (password === null || password === "") {
-            toast.error("Please enter a Password");
+        if (password === null || password === "" || !validatePassword(password)) {
+            toast.error("Password must have at least 3 digits.");
             return;
         }
-        if (!validatePassword(password)) {
-            toast.error("Password must have at least 3 digits");
-            return;
-        }
-
-
-
+   
         setLoginInProgress(true);
         setError(false);
 
@@ -94,21 +87,12 @@ function LoginPage() {
 
 
         <form className="relative block max-w-md mx-auto z-40" onSubmit={handleFormSubmit}>
-            {/* <Input 
-                type={"email"}
-                placeholder={"Email"} 
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={loginInProgress}
-                
-            /> */}
 
             <input type="email"
                 placeholder="Email"
                 value={email} 
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={loginInProgress}
-                // error={!validateEmail(email)}
                 className="dark:bg-dark-SBackground text-light-text dark:text-dark-text"
             />
 
@@ -117,7 +101,6 @@ function LoginPage() {
                 value={password} 
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loginInProgress}
-                // error={!validatePassword(password)}
                 className="dark:bg-dark-SBackground text-light-text dark:text-dark-text"
             />
 

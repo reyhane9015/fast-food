@@ -77,7 +77,7 @@ function OrderPaymentPage() {
         const data = await response.json();
         const order = data.find(i => i._id == id);
         setOrder(order);
-        console.log(order);
+        // console.log(order);
         // console.log(orders);
         setLoading(false);
       } catch(error) {
@@ -113,7 +113,7 @@ function OrderPaymentPage() {
       }
 
       const result = await response.json();
-      console.log("Payment result:", result);
+      // console.log("Payment result:", result);
 
       setOrder(result);
 

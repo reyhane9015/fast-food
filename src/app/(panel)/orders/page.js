@@ -70,7 +70,7 @@ function OrdersPage() {
               setOrders(orders.reverse());
               setProfileFetched(true);
 
-              console.log("orders are" , orders);
+            //   console.log("orders are" , orders);
 
             })
             .catch((error) => {
@@ -234,7 +234,7 @@ function OrdersPage() {
                                         <tbody>
         
                                         {currentItems.map((order , index) => (
-                                            <tr key={order._id}>
+                                            <tr key={`${order._id}-${order.userEmail}-${index}-${new Date().getTime()}`}>
 
                                                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-dark-SBackground">
                                                  <span className="bg-primary text-white p-2 rounded">{index + 1}</span>
@@ -258,8 +258,8 @@ function OrdersPage() {
 
                                                
                                                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm dark:bg-dark-SBackground">
-                                                        {order?.cartProducts.map((p) => 
-                                                            <p key ={p._id} className="whitespace-nowrap">
+                                                        {order?.cartProducts.map((p,index) => 
+                                                            <p key ={`${p._id} + ${index}`} className="whitespace-nowrap">
                                                                 {p.name}
                                                             </p>
                                                             // {p.category === categories._id && <p>{category.name}</p>}

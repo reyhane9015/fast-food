@@ -97,7 +97,7 @@ export default function CartPage() {
             })
             const result = await response.json();
 
-            console.log("result is:" , result);
+            // console.log("result is:" , result);
 
             // console.log(result._id);
 
@@ -238,7 +238,7 @@ export default function CartPage() {
 
                                             // console.log(productKey);
 
-                                            console.log("cartProducts:" , cartProducts);
+                                            // console.log("cartProducts:" , cartProducts);
 
                                             
                                             return (

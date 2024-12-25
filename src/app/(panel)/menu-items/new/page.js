@@ -31,7 +31,7 @@ function NewMenuItemPage() {
     async function handleFormSubmit(e, data) {
         e.preventDefault();
 
-        console.log("Sending data:", data);
+        // console.log("Sending data:", data);
 
         setIsSaving(true);
         // setLoading(true);
@@ -44,7 +44,7 @@ function NewMenuItemPage() {
                     body: JSON.stringify({ ...data, category: category?._id }),
                 })
 
-                console.log('API Response New Page:', response);
+                // console.log('API Response New Page:', response);
 
                 if(response.ok) {
                     resolve();
@@ -79,7 +79,7 @@ function NewMenuItemPage() {
       }
 
 
-      console.log("cat from new is" , category);
+    //   console.log("cat from new is" , category);
 
 
 

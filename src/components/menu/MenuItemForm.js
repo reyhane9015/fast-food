@@ -42,7 +42,7 @@ function MenuItemForm({onSubmit , menuItem , category, setCategory }) {
 
 
 
-    console.log("selected cat: " , category);
+    // console.log("selected cat: " , category);
 
     
 

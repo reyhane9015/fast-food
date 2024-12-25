@@ -43,7 +43,7 @@ function EditMenuItemPage() {
       
       setCategory(item.category);
 
-      console.log("menu Item is" , item);
+      // console.log("menu Item is" , item);
 
       setLoading(false);
     })
@@ -59,7 +59,7 @@ function EditMenuItemPage() {
   const handleFormSubmit = async(e,data) => {
     e.preventDefault();
 
-    console.log("Sending data:", { ...data,category: category, _id: id });
+    // console.log("Sending data:", { ...data,category: category, _id: id });
 
 
     if (!data) {
@@ -78,7 +78,7 @@ function EditMenuItemPage() {
          })
 
 
-        console.log('API Response Edit page:', response);
+        // console.log('API Response Edit page:', response);
 
         if(response.ok) {
           resolve();
@@ -150,7 +150,7 @@ function EditMenuItemPage() {
 
 
 
-  console.log("cat from edit is" , category);
+  // console.log("cat from edit is" , category);
 
 
   return (

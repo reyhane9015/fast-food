@@ -37,7 +37,7 @@ function OrderPage() {
         .then((response) => response.json())
         .then((categories) => {
             setCategories(categories);
-            console.log(categories);
+            // console.log(categories);
         })
         .catch((error) => {
             console.error('Error fetching categories:', error);
@@ -58,7 +58,7 @@ function OrderPage() {
         const order = data.find(i => i._id === id);
         setOrder(order);
 
-        console.log("orders are 2" , order);
+        // console.log("orders are 2" , order);
 
       } catch (error) {
         console.error('Error fetching order:', error);
@@ -237,7 +237,7 @@ function OrderPage() {
                                       {order.cartProducts && order.cartProducts.map((p , index) => {
 
                                           return (
-                                            <tr key={p._id} className="font-semibold text-center text-gray-500 dark:text-dark-text border-dashed border-b-2 border-b-gray-300">
+                                            <tr key={`${p._id} + ${index}`} className="font-semibold text-center text-gray-500 dark:text-dark-text border-dashed border-b-2 border-b-gray-300">
 
                                               <td className="">{index + 1}</td>
                                               <td className="py-4">{getCategoryImage(p.category)}</td>

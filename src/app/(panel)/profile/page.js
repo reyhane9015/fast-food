@@ -35,7 +35,7 @@ function ProfilePage() {
                         throw new Error('Failed to fetch profile');
                     }
                     const data = await response.json();
-                    console.log(data);
+                    // console.log(data);
                     setUser(data);
                     setProfileFetched(true);
                 } catch (error) {
