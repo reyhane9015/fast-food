@@ -1,6 +1,6 @@
 import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
-import BackImages from '@/components/layout/BackImages';
+// import BackImages from '@/components/layout/BackImages';
 
 
 export default function Loading() {
