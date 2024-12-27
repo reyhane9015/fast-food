@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react"
@@ -62,7 +61,7 @@ function RegisterPage() {
 
 
 
-        const registeringPromise = new Promise(async(resolve,reject) => {
+    const registeringPromise = new Promise(async(resolve,reject) => {
             const response = await fetch('/api/register' , {
                 method: 'POST',
                 body: JSON.stringify({email , password}),
