@@ -5,7 +5,6 @@ import {signOut, useSession} from "next-auth/react";
 import { useState , useEffect, useContext } from "react";
 import { CartContext } from './../AppContext';
 import ShoppingCart from "../icons/ShoppingCart";
-// import Profile from "../icons/Profile";
 import ThemeToggleButton from "../ui/ThemeToggleButton";
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -47,8 +46,7 @@ function Header() {
   useEffect(() => {
     handleScroll();
     window.addEventListener("scroll" , handleScroll);
-
-    // return () => window.addEventListener("scroll" , handleScroll);
+    
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };

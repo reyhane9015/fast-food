@@ -8,33 +8,17 @@ function ContactForm() {
         <Input 
             type={"text"}
             label={"Name"} 
-            // placeholder={"** ** ** **"} 
-            // value={name} 
-            // onChange={(e) => setCardNumber(e.target.value)}
-            // isSaving={isSaving}
-            // disabled={isSaving} 
         />
 
          <Input 
             type={"text"}
             label={"Email"} 
-            // placeholder={"** ** ** **"} 
-            // value={name} 
-            // onChange={(e) => setCardNumber(e.target.value)}
-            // isSaving={isSaving}
-            // disabled={isSaving} 
         />
          <Input 
             type={"text"}
             label={"Message"} 
-            // placeholder={"** ** ** **"} 
-            // value={name} 
-            // onChange={(e) => setCardNumber(e.target.value)}
-            // isSaving={isSaving}
-            // disabled={isSaving} 
         />
 
-        {/* <button type="submit">Send</button> */}
         <ButtonPrimary type="submit" title="Send" />
 
     </form>

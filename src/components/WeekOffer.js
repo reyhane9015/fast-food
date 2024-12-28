@@ -1,7 +1,6 @@
 "use client";
 
 import Image from 'next/image';
-// import Link from "next/link";
 import { motion } from "framer-motion";
 import LinkPrimary from '@/components/ui/LinkPrimary';
 import { btnVariants } from './../utils/animation';
@@ -15,10 +14,6 @@ return (
         <div className="max-w-6xl mx-auto text-gray-800 my-8 overflow-hidden">
 
             <div className="flex items-center justify-between gap-4 w-full lg:text-center my-4 bg-gradient-to-b from-third rounded-lg p-8 lg:p-12 shadow-md">
-
-
-                {/* <Image src="/Arrow-animation3.gif" className="hidden lg:block absolute left-[20px] bottom-[20px]" width={150} height={250} alt="successful-animation" /> */}
-
             
                 <motion.div
                     initial={{opacity: 0 , x: -100}}

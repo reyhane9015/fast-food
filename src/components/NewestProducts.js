@@ -11,17 +11,6 @@ function NewestProducts() {
     const [error, setError] = useState(null);
 
 
-    // useEffect(() => {
-    //     setLoading(true);
-    //     fetch('/api/menu-items').then(res => {
-    //         res.json().then(menuItems => {
-    //             const bestSelleres = menuItems.slice(-4);
-    //             setNewestProducts(bestSelleres);
-    //         })
-    //     })
-    //     setLoading(false);
-    // },[newestProducts]);
-
     useEffect(() => {
         const fetchNewestProduct = async() => {
             try {

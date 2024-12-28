@@ -102,30 +102,17 @@ function AppProvider({children}) {
 
 
   const removeCartProduct = (indexToRemove) => {
-    // console.log("Index to remove:", indexToRemove);
 
     setCartProducts(prevCartProducts => {
 
       const newCartProducts = prevCartProducts.filter((value, index) => index !== indexToRemove);
 
-      // console.log("New cart products:", newCartProducts);
-      
       saveCartProductsToLocalStorage(newCartProducts);
 
       return newCartProducts;
     })
 
   }
-
-
-  // const updateCartProducts = (productId, newQuantity) => {
-  //   setCartProducts(prevProducts => 
-  //       prevProducts.map(product => 
-  //           product._id === productId ? { ...product, quantity: newQuantity } : product
-  //       )
-  //   );
-  // };
-
 
 
 
@@ -173,8 +160,6 @@ function AppProvider({children}) {
       price = price * cartProduct.quantity;
     }
 
-
-    // console.log("price is" , price);
     return price;
   }
 

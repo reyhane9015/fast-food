@@ -5,7 +5,6 @@ import { CartContext }  from './../AppContext';
 import { useState , useContext } from "react";
 import { toast } from 'react-hot-toast';
 import MenuItemCard from "./MenuItemCard";
-// import { useSession } from 'next-auth/react';
 // import FlyingButton from 'react-flying-item';
 
 
@@ -27,9 +26,6 @@ function MenuItem(menuItem) {
     const hasOptions = sizes.length > 0 || extraItems.length > 0;
 
     const itemToAdd = {menuItem , selectedSize , selectedExtraItems };
-
-    // console.log("itemtoAdd" ,itemToAdd);
-    // console.log("cart cartProduct in MenuItem" , cartProducts);
 
 
     if(hasOptions && !showModal) {
@@ -58,36 +54,6 @@ function MenuItem(menuItem) {
 
     });
   
-
-
-    // const itemUpdated = addToCart(itemToAdd);
-    // setShowModal(false);
-
-    // if(itemUpdated) {
-    //   toast.success('Item quantity updated in cart!');
-    // } else {
-    //   toast.success('Item added to cart successfully!');
-    // }
-
-
-
-    // const existingItemIndex = cartProducts.findIndex(item =>
-    //   item._id === menuItem._id &&
-    //   item.size._id === selectedSize?._id &&
-    //   JSON.stringify(item.extras) === JSON.stringify(selectedExtraItems)
-    // )
-
-    // if (existingItemIndex !== -1) {
-    //   // If the item exists in cartProducts, increase its quantity
-    //   cartProducts[existingItemIndex].quantity += 1;
-    //   setShowModal(false);
-    //   toast.success('Item quantity updated in cart!');
-    // } else {
-    //   // If the item does not exist in cartProducts, add it  
-    //   addToCart(itemToAdd);
-    //   setShowModal(false);
-    //   toast.success('Item added to cart successfully!');
-    // }
   }
 
 

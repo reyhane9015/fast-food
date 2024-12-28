@@ -40,10 +40,6 @@ function MenuItemForm({onSubmit , menuItem , category, setCategory }) {
             .catch(error => console.error('Failed to fetch categories:', error));
     }, []);
 
-
-
-    // console.log("selected cat: " , category);
-
     
 
 

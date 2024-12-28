@@ -11,19 +11,6 @@ function BestSellers() {
     const [error, setError] = useState(null);
 
 
-    // useEffect(() => {
-    //     setLoading(true);
-    //     fetch('/api/menu-items').then(res => {
-    //         res.json().then(menuItems => {
-
-    //             const sortedItems = menuItems.sort((a, b) => b.ratings - a.ratings);
-    //             const bestSelleres = sortedItems.slice(0, 4);
-    //             setBestSellers(bestSelleres);
-    //         })
-    //     })
-    //     setLoading(false);
-    // },[bestSellers])
-
     useEffect(() => {
 
         const fetchBestSellers = async() => {

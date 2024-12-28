@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 
 
-
 function ButtonPrimary({title , type = "button" , onClick}) {
 
     return (          

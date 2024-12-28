@@ -15,12 +15,6 @@ export function useProfile() {
       setError(null);
 
       fetch('/api/profile')
-        // .then(data => {
-        //   setData(data);
-        //   setLoading(false);
-
-        //   console.log(data);
-        // })
         .then(response => {
           if(!response.ok)  {
             throw new Error("Failed to fech Profile data");

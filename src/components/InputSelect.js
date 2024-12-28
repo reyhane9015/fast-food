@@ -2,7 +2,6 @@
 
 function InputSelect({label , value , onChange , optionLabel , optionItems  , isSaving , isEditable}) {
 
-
     return (
         <>
           <label>{label}</label>

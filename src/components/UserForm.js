@@ -49,7 +49,6 @@ function UserForm({user , onSave , isEditable = true}) {
 }
 
         const selectedCountry = countriesWithCities.find(c => c.name === country);
-        // console.log(selectedCountry);
         setCityOptions(selectedCountry ? selectedCountry.cities : []);
     }, [country , countriesWithCities]);
     

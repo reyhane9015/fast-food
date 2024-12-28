@@ -1,19 +1,13 @@
 "use client";
 
 
-// import Right from './icons/Right';
-// import Link from "next/link";
 import Reviews from './ui/Reviews';
-
 import { motion } from "framer-motion";
 import { headerVariants , descVariants , btnVariants } from './../utils/animation';
-
-
 import LinkPrimary from "./ui/LinkPrimary";
 import LinkSecondery from "./ui/LinkSecondery";
 
 import HomeSwiper from './ui/HomeSwiper';
-
 
 
 

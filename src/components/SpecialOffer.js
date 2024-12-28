@@ -1,7 +1,6 @@
 "use client";
 
 import Image from 'next/image';
-// import Link from "next/link";
 import { motion } from "framer-motion";
 import LinkPrimary from '@/components/ui/LinkPrimary';
 import { btnVariants } from './../utils/animation';

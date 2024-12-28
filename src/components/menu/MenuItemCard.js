@@ -1,16 +1,14 @@
 import Image from 'next/image';
 import { useState , useEffect } from 'react';
 import StarRating from '../ui/StarRating';
-
 import { motion } from "framer-motion";
-// import { headerVariants } from "../../utils/animation";
+
 
 function MenuItemCard({onAddToCard , ...item}) {
 
     const {name, description, category, basePrice, sizes , extras , ratings , freeShipping} = item;
 
 
-    // console.log(item);
 
     // *********************************************************************************//
     // In this section I want to show for each categoris one image based on its name
@@ -27,8 +25,6 @@ function MenuItemCard({onAddToCard , ...item}) {
             });
     }, []);
     
-    // console.log(categories);
-
     // *********************************************************************************//
 
 
