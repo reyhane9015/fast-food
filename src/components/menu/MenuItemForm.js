@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 import MenuItemPriceProps from "./MenuItemPriceProps";
-import Input from "../Input";
-import InputSelect from "../InputSelect";
-import InputTextarea from "../InputTextarea";
+import Input from "../ui/Input";
+import InputSelect from "../ui/InputSelect";
+import InputTextarea from "../ui/InputTextarea";
 
 function MenuItemForm({ onSubmit, menuItem, category, setCategory }) {
   const [name, setName] = useState(menuItem?.name || "");

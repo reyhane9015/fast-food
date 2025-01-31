@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import Input from "./../../components/Input";
+import Input from "../../components/ui/Input";
 
 function RegisterPage() {
   const [email, setEmail] = useState("");

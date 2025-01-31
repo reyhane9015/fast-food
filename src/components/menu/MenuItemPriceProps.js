@@ -2,7 +2,7 @@ import ChevronDown from "../icons/ChevronDown";
 import Delete from "../icons/Trash";
 import { useState } from "react";
 import ChevronUp from "./../icons/ChevronUp";
-import Input from "@/components/Input";
+import Input from "@/components/ui/Input";
 
 function MenuItemPriceProps({ props, setProps, label }) {
   const [isOpen, setIsOpen] = useState(false);

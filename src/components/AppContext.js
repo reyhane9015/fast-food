@@ -53,6 +53,9 @@ function AppProvider({ children }) {
       let itemUpdated = false;
 
       setCartProducts((prevProducts) => {
+        // Ensure prevProducts is an array
+        const currentProducts = Array.isArray(prevProducts) ? prevProducts : [];
+        
         const newProduct = {
           ...menuItem,
           size: selectedSize,
@@ -60,7 +63,7 @@ function AppProvider({ children }) {
           quantity: 1,
         };
 
-        const existingProductIndex = prevProducts.findIndex(
+        const existingProductIndex = currentProducts.findIndex(
           (item) =>
             item._id === menuItem._id &&
             item.size?._id === selectedSize?._id &&
@@ -70,7 +73,7 @@ function AppProvider({ children }) {
         let newProducts;
         if (existingProductIndex !== -1) {
           // If the item exists, increase its quantity
-          newProducts = prevProducts.map((item, index) =>
+          newProducts = currentProducts.map((item, index) =>
             index === existingProductIndex
               ? { ...item, quantity: item.quantity + 1 }
               : item
@@ -78,7 +81,7 @@ function AppProvider({ children }) {
           itemUpdated = true;
         } else {
           // If the item does not exist, add it to the cart
-          newProducts = [...prevProducts, newProduct];
+          newProducts = [...currentProducts, newProduct];
         }
 
         saveCartProductsToLocalStorage(newProducts);

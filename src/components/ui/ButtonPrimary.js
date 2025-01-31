@@ -7,7 +7,7 @@ function ButtonPrimary({ title, type = "button", onClick }) {
       whileTap={{ scale: 0.85 }}
       type={type}
       onClick={onClick}
-      className="flex items-center justify-center bg-primary text-white p-4 rounded-full"
+      className="flex items-center justify-center bg-primary text-white py-2 px-8 rounded-full"
     >
       {title}
     </motion.button>

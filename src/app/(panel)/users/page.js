@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Input from "@/components/Input";
+import Input from "@/components/ui/Input";
 import { useSession } from "next-auth/react";
 import { dbTimeForHuman } from "@/libs/datatime";
 import Link from "next/link";

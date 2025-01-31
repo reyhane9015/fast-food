@@ -39,9 +39,9 @@ function SpecialOffer() {
               initial="offscreen"
               whileInView="onscreen"
               variants={btnVariants}
-              className="w-[60%] flex justify-between items-center gap-4 text-md md:px-8 mt-8"
+              className="md:w-[60%] flex justify-between items-center gap-4 text-md md:px-8 mt-8"
             >
-              <LinkPrimary href={"/menu"} title="Order Now" />
+              <LinkPrimary href="/menu" title="Order Now" />
               <p className="font-semibold text-2xl">34.99$</p>
             </motion.div>
           </motion.div>

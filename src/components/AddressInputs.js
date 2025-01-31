@@ -1,6 +1,6 @@
-import Input from "./Input";
-import InputSelect from "./InputSelect";
-import InputTextarea from "./InputTextarea";
+import Input from "./ui/Input";
+import InputSelect from "./ui/InputSelect";
+import InputTextarea from "./ui/InputTextarea";
 import Link from "next/link";
 import Edit from "../components/icons/Edit";
 import { usePathname } from "next/navigation";

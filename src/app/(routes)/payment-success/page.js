@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { CartContext } from "@/components/AppContext";
 import { useSession } from "next-auth/react";
-import ButtonPrimary from "@/components/layout/ButtonPrimary";
+import ButtonPrimary from "@/components/ui/ButtonPrimary";
 
 export default function PaymentSuccessPage() {
   const { cartProducts, cartProductPrice, clearCart } = useContext(CartContext);

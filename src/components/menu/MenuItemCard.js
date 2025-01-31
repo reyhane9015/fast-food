@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import StarRating from "../ui/StarRating";
 import { motion } from "framer-motion";
+import ButtonPrimary from "../ui/ButtonPrimary";
 
 function MenuItemCard({ onAddToCard, ...item }) {
   const {
@@ -101,14 +102,15 @@ function MenuItemCard({ onAddToCard, ...item }) {
 
       <p className="text-gray-500 text-sm line-clamp-2 mt-8">{description}</p>
 
-      <div className="mt-16">
-        <button
+      {/* <button
           type="button"
           className="absolute bottom-4 left-10 right-10 max-w-[120px] mx-auto bg-secondery text-white rounded-full p-2"
           onClick={onAddToCard}
         >
           Add to cart
-        </button>
+        </button> */}
+      <div className="lg:w-[80%] mx-auto mt-16">
+        <ButtonPrimary onClick={onAddToCard} title="Add to cart" />
       </div>
     </motion.div>
   );

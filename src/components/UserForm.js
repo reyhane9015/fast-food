@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import AddressInputs from "@/components/AddressInputs";
 import { usePathname } from "next/navigation";
-import Input from "./Input";
+import Input from "./ui/Input";
 import { toast } from "react-hot-toast";
 import { useUser } from "./UserContext";
 

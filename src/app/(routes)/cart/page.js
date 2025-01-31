@@ -8,8 +8,8 @@ import UserForm from "@/components/UserForm";
 import { useSession } from "next-auth/react";
 import { CartContext } from "./../../../components/AppContext";
 import Delete from "@/components/icons/Delete";
-import ButtonSecondery from "@/components/layout/ButtonSecondery";
-import ButtonPrimary from "@/components/layout/ButtonPrimary";
+import ButtonSecondery from "@/components/ui/ButtonSecondery";
+import ButtonPrimary from "@/components/ui/ButtonPrimary";
 import { toast } from "react-hot-toast";
 
 export default function CartPage() {

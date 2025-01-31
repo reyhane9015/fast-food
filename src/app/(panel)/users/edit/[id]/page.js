@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { toast } from "react-hot-toast";
 import { redirect, useParams } from "next/navigation";
-import DeleteButton from "@/components/DeleteButton";
+import DeleteButton from "@/components/ui/DeleteButton";
 import LinkPrimary from "@/components/ui/LinkPrimary";
 
 function EditUserPage() {

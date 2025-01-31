@@ -28,22 +28,17 @@ function Hero() {
             initial="offscreen"
             whileInView="onscreen"
             variants={descVariants}
-            className="my-12 text-gray-500 text-xl md:text-2xl text-center"
+            className="my-12 text-gray-500 text-xl md:text-2xl text-left"
           >
             Pizza is the missing piece that makes every day complete, a simple
             yet delicious joy in life every day complete, a simple yet delicious
             joy in life
           </motion.p>
 
-          <motion.div
-            initial="offscreen"
-            whileInView="onscreen"
-            variants={btnVariants}
-            className="w-[60%] mx-auto flex justify-center md:justify-end items-center gap-4 text-md md:px-8"
-          >
-            <LinkPrimary href={"/menu"} title="Order Now" />
-            <LinkSecondery href={"/about-us"} title="Learn More" />
-          </motion.div>
+          <div className="flex items-center justify-center md:justify-start gap-2">
+            <LinkPrimary href="/menu" title="Order Now" />
+            <LinkSecondery href="/about-us" title="Learn More" />
+          </div>
 
           <Reviews />
         </div>

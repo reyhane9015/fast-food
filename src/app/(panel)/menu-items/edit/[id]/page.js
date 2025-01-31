@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { redirect, useParams } from "next/navigation";
 import MenuItemForm from "@/components/menu/MenuItemForm";
-import DeleteButton from "@/components/DeleteButton";
+import DeleteButton from "@/components/ui/DeleteButton";
 import { useSession } from "next-auth/react";
 import withAuth from "./../../../../../libs/withAuth";
 import LinkPrimary from "@/components/ui/LinkPrimary";

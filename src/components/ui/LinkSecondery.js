@@ -4,8 +4,9 @@ import Link from "next/link";
 function LinkSecondery({ href, title }) {
   return (
     <motion.div
+      whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.85 }}
-      className="min-w-[120px] sm:min-w-[160px] flex items-center justify-center p-4 text-gray-600 font-semibold text-primary border-2 border-primary rounded-full hover:bg-primary hover:text-white"
+      className="flex items-center justify-center bg-primary text-primary bg-transparent border-2 border-primary px-2 py-2 md:px-8 rounded-full text-md lg:text-lg font-semibold hover:bg-primary hover:text-white"
     >
       <Link href={href}>{title}</Link>
     </motion.div>

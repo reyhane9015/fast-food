@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Trash from "./icons/Trash";
+import Trash from "../../components/icons/Trash";
 
 export default function DeleteButton({ label, onDelete }) {
   const [showConfirm, setShowConfirm] = useState(false);

@@ -7,7 +7,7 @@ function ButtonSecondery({ title, type = "button", onClick }) {
       whileTap={{ scale: 0.85 }}
       type={type}
       onClick={onClick}
-      className="flex items-center justify-center p-2 text-gray-600 font-semibold text-primary border-2 border-primary rounded-full"
+      className="flex items-center justify-center p-2 font-semibold text-primary border-2 border-primary rounded-full hover:bg-transparent hover:text-white"
     >
       {title}
     </motion.button>

@@ -54,9 +54,9 @@ function WeekOffer() {
               initial="offscreen"
               whileInView="onscreen"
               variants={btnVariants}
-              className="w-[30%] text-md md:px-8 mt-8"
+              className="md:w-[35%] text-md md:px-8 mt-8"
             >
-              <LinkPrimary href={"/menu"} title="Learn More" />
+              <LinkPrimary href="/menu" title="Learn More" />
             </motion.div>
           </motion.div>
         </div>

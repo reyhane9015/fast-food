@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useContext } from "react";
 import { redirect, useParams } from "next/navigation";
-import DeleteButton from "@/components/DeleteButton";
+import DeleteButton from "@/components/ui/DeleteButton";
 import { toast } from "react-hot-toast";
 import { dbTimeForHuman } from "@/libs/datatime";
 import withAuth from "./../../../../libs/withAuth";
@@ -144,8 +144,8 @@ function OrderPage() {
       {status == "authenticated" && (
         <div className="max-w-6xl mx-auto">
           <div className="flex justify-between mb-8">
-            <div className="w-[170px] mb-16">
-              <LinkPrimary href={"/orders"} title="Back to All Orders" />
+            <div className="w-[220px]">
+              <LinkPrimary href="/orders" title="Back to All Orders" />
             </div>
 
             <div>

@@ -9,6 +9,11 @@ import ThemeToggleButton from "../ui/ThemeToggleButton";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import ButtonPrimary from "../ui/ButtonPrimary";
+import LinkPrimary from "../ui/LinkPrimary";
+import LinkSecondery from "./../ui/LinkSecondery";
+import LinkHeader from "./../ui/LinkHeader";
+import HeaderMobile from "./HeaderMobile";
 
 function Header() {
   const { cartProducts, isItemAdded, cartProductsCount } =
@@ -51,8 +56,8 @@ function Header() {
     <header
       className={
         scrolled
-          ? "fixed top-0 left-0 w-full py-4 bg-white dark:bg-dark-SBackground shadow-lg z-50"
-          : "absolute top-0 left-0 w-full py-4 bg-transparent z-50"
+          ? "fixed top-0 left-0 w-full py-2 md:py-6 bg-white dark:bg-dark-SBackground shadow-lg z-50"
+          : "absolute top-0 left-0 w-full py-2 md:py-6 bg-transparent z-50"
       }
     >
       <div className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-12">
@@ -73,46 +78,10 @@ function Header() {
 
         <nav className="flex items-center gap-8 font-semibold text-md z-50 md:text-lg">
           <div className="md:flex md:space-x-4 items-center hidden lg:space-x-8">
-            <Link
-              href="/"
-              className={`hover:text-primary  ${
-                path === "/"
-                  ? "text-primary border-b-2 border-primary"
-                  : "text-gray-600"
-              }`}
-            >
-              Home
-            </Link>
-            <Link
-              href="/menu"
-              className={`hover:text-primary ${
-                path.includes("/menu")
-                  ? "text-primary border-b-2 border-primary"
-                  : "text-gray-600"
-              }`}
-            >
-              Menu
-            </Link>
-            <Link
-              href="/about-us"
-              className={`hover:text-primary ${
-                path === "/about-us"
-                  ? "text-primary border-b-2 border-primary"
-                  : "text-gray-600"
-              }`}
-            >
-              About Us
-            </Link>
-            <Link
-              href="/contact-us"
-              className={`hover:text-primary ${
-                path === "/contact-us"
-                  ? "text-primary border-b-2 border-primary"
-                  : "text-gray-600"
-              }`}
-            >
-              Contact Us
-            </Link>
+            <LinkHeader href="/" title="Home" />
+            <LinkHeader href="/menu" title="Menu" />
+            <LinkHeader href="/about-us" title="About Us" />
+            <LinkHeader href="/contact-us" title="Contact Us" />
           </div>
 
           <div className="flex items-center gap-2 md:gap-4">
@@ -135,49 +104,20 @@ function Header() {
                   <div>Hi,{userName}</div>
                 </Link>
 
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                >
-                  <button
+                <div className="hidden md:flex">
+                  <ButtonPrimary
                     onClick={() => signOut({ callbackUrl: "/" })}
-                    className="bg-primary rounded-full text-white px-8 py-2 hidden lg:block"
-                  >
-                    Logout
-                  </button>
-                </motion.div>
+                    title="Logout"
+                  />
+                </div>
               </>
             )}
 
             {status === "unauthenticated" && (
-              <>
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                >
-                  <Link
-                    className="text-primary px-4 py-2 border-2 border-primary rounded-full"
-                    href="/login"
-                  >
-                    Login
-                  </Link>
-                </motion.div>
-
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                >
-                  <Link
-                    className="bg-primary rounded-full text-white px-4 py-2 hidden sm:block"
-                    href="/register"
-                  >
-                    Register
-                  </Link>
-                </motion.div>
-              </>
+              <div className="hidden md:flex gap-2">
+                <LinkPrimary href="/login" title="Login" />
+                <LinkSecondery href="/register" title="Register" />
+              </div>
             )}
 
             <Link
@@ -197,59 +137,7 @@ function Header() {
             </Link>
 
             {/* Mobile Menu */}
-            <div className="fixed bottom-0 left-0 w-full md:hidden pt-4 bg-white dark:bg-dark-SBackground shadow-lg z-50">
-              <div className="max-w-6xl mx-auto text-sm flex items-center justify-between px-4 sm:px-6 lg:px-12">
-                <Link
-                  href="/"
-                  className={`hover:text-primary  ${
-                    path === "/"
-                      ? "text-primary border-b-2 border-primary"
-                      : "text-gray-600"
-                  }`}
-                >
-                  Home
-                </Link>
-                <Link
-                  href="/menu"
-                  className={`hover:text-primary py-4 ${
-                    path.includes("/menu")
-                      ? "text-primary border-b-2 border-primary"
-                      : "text-gray-600"
-                  }`}
-                >
-                  Menu
-                </Link>
-                <Link
-                  href="/about-us"
-                  className={`hover:text-primary py-4 ${
-                    path === "/about-us"
-                      ? "text-primary border-b-2 border-primary"
-                      : "text-gray-600"
-                  }`}
-                >
-                  About Us
-                </Link>
-                <Link
-                  href="/contact-us"
-                  className={`hover:text-primary py-4 ${
-                    path === "/contact-us"
-                      ? "text-primary border-b-2 border-primary"
-                      : "text-gray-600"
-                  }`}
-                >
-                  Contact Us
-                </Link>
-
-                {status === "authenticated" && (
-                  <div
-                    className={"text-gray-600 hover:text-primary py-4"}
-                    onClick={() => signOut({ callbackUrl: "/" })}
-                  >
-                    Logout
-                  </div>
-                )}
-              </div>
-            </div>
+            <HeaderMobile />
           </div>
         </nav>
       </div>

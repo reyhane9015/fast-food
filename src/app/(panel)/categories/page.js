@@ -3,9 +3,9 @@
 import Edit from "@/components/icons/Edit";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import DeleteButton from "@/components/DeleteButton";
+import DeleteButton from "@/components/ui/DeleteButton";
 import Image from "next/image";
-import Input from "./../../../components/Input";
+import Input from "../../../components/ui/Input";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import withAuth from "./../../../libs/withAuth";

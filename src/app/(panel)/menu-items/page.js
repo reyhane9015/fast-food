@@ -31,7 +31,7 @@ function MenuItemsPage() {
     <section>
       {status == "authenticated" && (
         <div className="max-w-6xl m-auto">
-          <div className="w-[170px] mb-16">
+          <div className="w-[220px] mb-16">
             <LinkPrimary href={"/menu-items/new"} title="Create New Item +" />
           </div>
 

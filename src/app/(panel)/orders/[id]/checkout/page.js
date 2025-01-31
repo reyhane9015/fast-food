@@ -7,8 +7,8 @@ import Link from "next/link";
 import { CartContext } from "@/components/AppContext";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { useSession } from "next-auth/react";
-import Input from "@/components/Input";
-import ButtonPrimary from "@/components/layout/ButtonPrimary";
+import Input from "@/components/ui/Input";
+import ButtonPrimary from "@/components/ui/ButtonPrimary";
 
 function OrderPaymentPage() {
   const { cartProducts, cartProductPrice, clearCart } = useContext(CartContext);

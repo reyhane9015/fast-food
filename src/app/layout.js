@@ -1,6 +1,5 @@
 import { Roboto } from "next/font/google";
 import "./globals.css";
-
 import AppProvider from "@/components/AppContext";
 import { Toaster } from "react-hot-toast";
 
@@ -15,7 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth">
       <body className={roboto.className}>
-        <main className="mx-auto">
+        <main>
           <AppProvider>
             <Toaster />
             {children}

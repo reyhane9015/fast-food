@@ -1,5 +1,5 @@
-import Input from "@/components/Input";
-import ButtonPrimary from "@/components/layout/ButtonPrimary";
+import Input from "@/components/ui/Input";
+import ButtonPrimary from "@/components/ui/ButtonPrimary";
 
 function ContactForm() {
   return (
