@@ -1,6 +1,6 @@
-import { useSession } from 'next-auth/react';
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useSession } from "next-auth/react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const withAuth = (WrappedComponent) => {
   const WithAuth = (props) => {
@@ -9,25 +9,24 @@ const withAuth = (WrappedComponent) => {
     const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
-      if (status === 'loading') return;
+      if (status === "loading") return;
 
-      if (status === 'authenticated') {
-        fetch('/api/profile')
+      if (status === "authenticated") {
+        fetch("/api/profile")
           .then((response) => response.json())
           .then((data) => {
-            // console.log('withAuth data is:', data);
             if (data.admin) {
               setIsAdmin(true);
             } else {
-              router.push('/profile');
+              router.push("/profile");
             }
           })
           .catch((error) => {
-            console.error('Error fetching profile:', error);
-            router.push('/profile');
+            console.error("Error fetching profile:", error);
+            router.push("/profile");
           });
       } else {
-        router.push('/login');
+        router.push("/login");
       }
     }, [status, router]);
 
@@ -39,7 +38,9 @@ const withAuth = (WrappedComponent) => {
   };
 
   // Add a display name to the HOC
-  WithAuth.displayName = `WithAuth(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`;
+  WithAuth.displayName = `WithAuth(${
+    WrappedComponent.displayName || WrappedComponent.name || "Component"
+  })`;
 
   return WithAuth;
 };

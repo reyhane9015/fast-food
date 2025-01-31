@@ -1,8 +1,7 @@
-import {useState} from "react";
-import Trash from './icons/Trash';
+import { useState } from "react";
+import Trash from "./icons/Trash";
 
-export default function DeleteButton({label,onDelete}) {
-
+export default function DeleteButton({ label, onDelete }) {
   const [showConfirm, setShowConfirm] = useState(false);
 
   if (showConfirm) {
@@ -15,7 +14,7 @@ export default function DeleteButton({label,onDelete}) {
               Cancel
             </button>
             <button
-                className="bg-primary p-4 rounded-lg text-white"
+              className="bg-primary p-4 rounded-lg text-white"
               onClick={() => {
                 onDelete();
                 setShowConfirm(false);
@@ -31,11 +30,13 @@ export default function DeleteButton({label,onDelete}) {
   }
 
   return (
-    <button type="button" className="flex items-center p-2 text-gray-600 font-semibold text-primary border-2 border-primary rounded-md" 
-        onClick={() => setShowConfirm(true)}
+    <button
+      type="button"
+      className="flex items-center p-2 text-gray-600 font-semibold text-primary border-2 border-primary rounded-md"
+      onClick={() => setShowConfirm(true)}
     >
-        <Trash />
-        {label}
+      <Trash />
+      {label}
     </button>
   );
 }

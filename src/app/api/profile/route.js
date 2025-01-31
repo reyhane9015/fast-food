@@ -1,39 +1,28 @@
-import mongoose from 'mongoose';
-import { authOptions } from '../auth/[...nextauth]/route';
-import { getServerSession } from 'next-auth';
-import { User } from './../../models/User';
-
+import mongoose from "mongoose";
+import { authOptions } from "../auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
+import { User } from "./../../models/User";
 
 export async function PUT(req) {
+  mongoose.connect(process.env.MONGO_URL);
 
-    mongoose.connect(process.env.MONGO_URL);
+  const data = await req.json();
+  const session = await getServerSession(authOptions);
+  const email = session.user.email;
 
-    const data = await req.json();
-    const session = await getServerSession(authOptions);
+  await User.updateOne({ email }, data);
 
-    // console.log('data is' , data);
-    // console.log('session isss' , session);
-
-    const email = session.user.email;
-
-    await User.updateOne({email}, data);
-   
-    return Response.json(true);
-
+  return Response.json(true);
 }
 
-
 export async function GET() {
-    
-    mongoose.connect(process.env.MONGO_URL);
+  mongoose.connect(process.env.MONGO_URL);
 
-    const session = await getServerSession(authOptions);
-    const email = session?.user?.email;
-    if(!email) {
-        return Response.json({});
-    }
+  const session = await getServerSession(authOptions);
+  const email = session?.user?.email;
+  if (!email) {
+    return Response.json({});
+  }
 
-    return Response.json(
-        await User.findOne({email})
-    );
+  return Response.json(await User.findOne({ email }));
 }

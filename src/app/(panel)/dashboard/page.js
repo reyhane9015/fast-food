@@ -1,23 +1,26 @@
 "use client";
 
-import { useState , useEffect , useContext } from 'react';
-import UserTabs from '@/components/ui/UserTabs';
-import { CartContext } from '@/components/AppContext';
-import { parseISO, isSameDay, isSameWeek, isSameMonth, startOfDay, startOfWeek, startOfMonth } from 'date-fns';
-import DashboardTop from '@/components/dashboard/DashboardTop';
-import DashboardBests from '@/components/dashboard/DashboardBests';
-import { useSession } from 'next-auth/react';
-
-import withAuth from './../../../libs/withAuth';
+import { useState, useEffect } from "react";
+import {
+  parseISO,
+  isSameDay,
+  isSameWeek,
+  isSameMonth,
+  startOfDay,
+  startOfWeek,
+  startOfMonth,
+} from "date-fns";
+import DashboardTop from "@/components/dashboard/DashboardTop";
+import DashboardBests from "@/components/dashboard/DashboardBests";
+import { useSession } from "next-auth/react";
+import withAuth from "./../../../libs/withAuth";
 
 function DashboardPage() {
-
   const session = useSession();
   const status = session.status;
-    
-  const[orders , setOrders] = useState([]);
-  const[isAdmin , setIsAdmin] = useState(true);
-  const[dataFetched , setDataFetched] = useState(false);
+
+  const [orders, setOrders] = useState([]);
+  const [dataFetched, setDataFetched] = useState(false);
 
   const [todayIncome, setTodayIncome] = useState(0);
   const [thisWeekIncome, setThisWeekIncome] = useState(0);
@@ -38,49 +41,30 @@ function DashboardPage() {
   const [customerCount, setCustomerCount] = useState([]);
   const [cardInfo, setCardInfo] = useState([]);
 
-
-  //  fetch all orders
-  // useEffect(() => { 
-  //   fetch('/api/orders').then(response => {
-  //       response.json().then(orders => {
-  //         setOrders(orders);
-  //         console.log("orders are:" , orders);
-          
-  //         setDataFetched(true);
-  //       });
-  //   });
-  // },[]);
-
-
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch('/api/orders');
-        
+        const response = await fetch("/api/orders");
+
         if (!response.ok) {
           throw new Error(`Error: ${response.statusText}`);
         }
-        
+
         const data = await response.json();
         setOrders(data);
         setDataFetched(true);
       } catch (error) {
-        console.error('Failed to fetch orders:', error);
+        console.error("Failed to fetch orders:", error);
         setDataFetched(false);
       }
     };
-  
+
     fetchOrders();
   }, []);
-  
-  
-
-
 
   // calc incomes with date-fns
   useEffect(() => {
-
-    if(!orders) return;
+    if (!orders) return;
 
     try {
       const today = startOfDay(new Date());
@@ -91,267 +75,222 @@ function DashboardPage() {
       let thisWeekIncomeTemp = 0;
       let thisMonthIncomeTemp = 0;
 
-      orders.forEach(order => {
-
+      orders.forEach((order) => {
         const createdAt = parseISO(order.createdAt);
 
-        if(order.paid) {
-
-          if(isSameDay(createdAt, today)) {
+        if (order.paid) {
+          if (isSameDay(createdAt, today)) {
             todayIncomeTemp += order.totalPrice;
           }
 
-          if(isSameWeek(createdAt , thisWeekStart)) {
+          if (isSameWeek(createdAt, thisWeekStart)) {
             thisWeekIncomeTemp += order.totalPrice;
           }
 
-          if(isSameMonth(createdAt , thisMonthStart)) {
+          if (isSameMonth(createdAt, thisMonthStart)) {
             thisMonthIncomeTemp += order.totalPrice;
           }
-
         }
-
       });
 
       setTodayIncome(todayIncomeTemp);
       setThisWeekIncome(thisWeekIncomeTemp);
       setThisMonthIncome(thisMonthIncomeTemp);
-    } catch(error) {
-      console.error('Error while calculating income:', error);
+    } catch (error) {
+      console.error("Error while calculating income:", error);
     }
-  },[orders]);
-
+  }, [orders]);
 
   // calc order count with date-fns
   useEffect(() => {
-
-    if(!orders) return;
+    if (!orders) return;
 
     try {
+      const today = startOfDay(new Date());
+      const thisWeekStart = startOfWeek(new Date());
+      const thisMonthStart = startOfMonth(new Date());
 
-    const today = startOfDay(new Date());
-    const thisWeekStart = startOfWeek(new Date());
-    const thisMonthStart = startOfMonth(new Date());
+      let totalOrderCount = orders.length;
 
-    let totalOrderCount = orders.length;
+      let todayOrderCount = 0;
+      let thisWeekOrderCount = 0;
+      let thisMonthOrderCount = 0;
 
-    let todayOrderCount = 0;
-    let thisWeekOrderCount = 0;
-    let thisMonthOrderCount = 0;
+      orders.forEach((order) => {
+        const createdAt = parseISO(order.createdAt);
 
-    orders.forEach(order => {
+        if (isSameDay(createdAt, today)) {
+          todayOrderCount++;
+        }
 
-      const createdAt = parseISO(order.createdAt);
+        if (isSameWeek(createdAt, thisWeekStart)) {
+          thisWeekOrderCount++;
+        }
 
-      if(isSameDay(createdAt, today)) {
-        todayOrderCount ++;
-      }
+        if (isSameMonth(createdAt, thisMonthStart)) {
+          thisMonthOrderCount++;
+        }
+        setTodayOrderCount(todayOrderCount);
+        setThisWeekOrderCount(thisWeekOrderCount);
+        setThisMonthOrderCount(thisMonthOrderCount);
 
-      if(isSameWeek(createdAt , thisWeekStart)) {
-        thisWeekOrderCount ++;
-      }
+        const todayerPercentage = (todayOrderCount / totalOrderCount) * 100;
+        const thisWeekerPercentage =
+          (thisWeekOrderCount / totalOrderCount) * 100;
+        const thisMontherPercentage =
+          (thisMonthOrderCount / totalOrderCount) * 100;
 
-      if(isSameMonth(createdAt , thisMonthStart)) {
-        thisMonthOrderCount ++;
-      }
-      setTodayOrderCount(todayOrderCount);
-      setThisWeekOrderCount(thisWeekOrderCount);
-      setThisMonthOrderCount(thisMonthOrderCount);
-
-      const todayerPercentage = (todayOrderCount / totalOrderCount) * 100;
-      const thisWeekerPercentage = (thisWeekOrderCount / totalOrderCount) * 100;
-      const thisMontherPercentage = (thisMonthOrderCount / totalOrderCount) * 100;
-
-      setTodayOrderPercentage(todayerPercentage);
-      setThisWeekOrderPercentage(thisWeekerPercentage);
-      setThisMonthOrderPercentage(thisMontherPercentage);
-
-    });
-  } catch(error) {
-    console.error('Error while calculating order count:', error);
-  }
-
-  },[orders]);
-
-
+        setTodayOrderPercentage(todayerPercentage);
+        setThisWeekOrderPercentage(thisWeekerPercentage);
+        setThisMonthOrderPercentage(thisMontherPercentage);
+      });
+    } catch (error) {
+      console.error("Error while calculating order count:", error);
+    }
+  }, [orders]);
 
   // items sales count
   useEffect(() => {
-
-    if(!orders) return;
+    if (!orders) return;
 
     try {
+      let totalOrderCount = orders.length;
 
-    let totalOrderCount = orders.length;
+      const salesCount = {};
 
-    const salesCount = {};
+      orders.forEach((order) => {
+        order.cartProducts.forEach((product) => {
+          if (!salesCount[product.name]) {
+            salesCount[product.name] = 0;
+          }
 
-    orders.forEach(order => {
-      order.cartProducts.forEach(product => {
+          salesCount[product.name]++;
+        });
+      });
 
-        if (!salesCount[product.name]) {
-          salesCount[product.name] = 0;
-        }
+      const salesCountArray = Object.entries(salesCount);
+      salesCountArray.sort((a, b) => b[1] - a[1]);
 
-        salesCount[product.name]++;
-      })   
-    })
+      setItemSalesCount(salesCountArray);
 
-    const salesCountArray = Object.entries(salesCount);
-    salesCountArray.sort((a, b) => b[1] - a[1]);
+      // percentage
+      const salesCountPercentageArray = salesCountArray.map(([item, count]) => {
+        const percentage = (count / totalOrderCount) * 100;
+        return [item, percentage.toFixed(2)]; // Return item and rounded percentage to 2 decimal places
+      });
 
-    // console.log("salescount:" , salesCount);
-    // console.log("salescountArray:" , salesCountArray);
-
-    setItemSalesCount(salesCountArray);
-
-    // console.log("itemSalesCount" , itemSalesCount);
-
-    // percentage
-    const salesCountPercentageArray = salesCountArray.map(([item, count]) => {
-      const percentage = (count / totalOrderCount) * 100;
-      return [item, percentage.toFixed(2)]; // Return item and rounded percentage to 2 decimal places
-    });
-
-    // console.log("salescount percentages:" , salesCountPercentageArray);
-
-    setItemSalesCountPercentage(salesCountPercentageArray);
-
-  } catch(error) {
-    console.error("Error while processing item sales count:", error);
-  }
-  },[orders]);
-
+      setItemSalesCountPercentage(salesCountPercentageArray);
+    } catch (error) {
+      console.error("Error while processing item sales count:", error);
+    }
+  }, [orders]);
 
   // country sales statistics
-  useEffect(()=> {
-
-    if(!orders) return;
+  useEffect(() => {
+    if (!orders) return;
 
     try {
+      let totalOrderCount = orders.length;
 
-    let totalOrderCount = orders.length;
-
-    const countryCount = {};
-    orders.forEach( order => {
-        order.user.forEach(u => {
-
+      const countryCount = {};
+      orders.forEach((order) => {
+        order.user.forEach((u) => {
           const normalizedCountry = u?.country?.toLowerCase();
 
-          if(!countryCount[normalizedCountry]) {
+          if (!countryCount[normalizedCountry]) {
             countryCount[normalizedCountry] = 0;
           }
 
           countryCount[normalizedCountry]++;
-        })
-    })
+        });
+      });
 
-    const countryPercentage = {};
-    for(const [country, count] of Object.entries(countryCount)) {
-      const percentage = (count / totalOrderCount) * 100;
-      countryPercentage[country] = percentage.toFixed(2);
+      const countryPercentage = {};
+      for (const [country, count] of Object.entries(countryCount)) {
+        const percentage = (count / totalOrderCount) * 100;
+        countryPercentage[country] = percentage.toFixed(2);
+      }
+      setcSalesCount(countryPercentage);
+    } catch (error) {
+      console.error("Error while processing count sale:", error);
     }
-    setcSalesCount(countryPercentage);
-  } catch(error){
-    console.error("Error while processing count sale:", error);
-  }
-
-  },[orders]);
-
+  }, [orders]);
 
   // best sellers statistics
   useEffect(() => {
     if (!orders) return;
 
     try {
+      const customerCount = {};
 
-    const customerCount = {};
-
- 
-    orders.forEach(order => {
+      orders.forEach((order) => {
         const userEmail = order.userEmail;
 
-
         if (!customerCount[userEmail]) {
-            customerCount[userEmail] = 0;
+          customerCount[userEmail] = 0;
         }
         customerCount[userEmail]++;
-    });
+      });
 
+      const customerCountArray = Object.entries(customerCount);
+      customerCountArray.sort((a, b) => b[1] - a[1]);
 
-    const customerCountArray = Object.entries(customerCount);
-    customerCountArray.sort((a, b) => b[1] - a[1]);
-
-    setCustomerCount(customerCountArray);
-  } catch(error) {
-    console.error("Error while processing best sellers:", error);
-  }
-
-},[orders]);
-
+      setCustomerCount(customerCountArray);
+    } catch (error) {
+      console.error("Error while processing best sellers:", error);
+    }
+  }, [orders]);
 
   // card info
   useEffect(() => {
     if (!orders) return;
 
     try {
+      let cardInfoArray = [];
 
-    let cardInfoArray = [];
+      orders.forEach((order) => {
+        if (order.cardInfo) {
+          cardInfoArray.push(order.cardInfo);
+        }
+      });
 
-    orders.forEach(order => {
-      if (order.cardInfo) {
-        cardInfoArray.push(order.cardInfo);
-        // console.log("card" , cardInfoArray);
-      }
-    });
+      setCardInfo(cardInfoArray.reverse());
+    } catch (error) {
+      console.error("Error while processing card info:", error);
+    }
+  }, [orders]);
 
-    setCardInfo(cardInfoArray.reverse());
-  } catch(error) {
-    console.error("Error while processing card info:", error);
+  if (status == "unauthenticated") {
+    return redirect("/login");
   }
-
-  },[orders]);
-
-
-
-  if(status == "unauthenticated") {
-    return redirect ("/login");
-  }
-
-
 
   return (
-
     <section>
-    {/* <section className="bg-light-background dark:bg-dark-background min-h-screen"> */}
-      
-      {/* <UserTabs isAdmin={isAdmin} /> */}
-
-    {/*      
-      {!dataFetched && <div 
-                          className="text-center font-semibold text-primary bg-light-background dark:bg-dark-background text-2xl h-screen flex justify-center items-center">
-                              Loading...
-                          </div>
-      } */}
-
-
-    {status == "authenticated" &&
+      {status == "authenticated" && (
         <>
-          <DashboardTop todayIncome={todayIncome} thisWeekIncome={thisWeekIncome} thisMonthIncome={thisMonthIncome}
-                        todayOrderCount={todayOrderCount} thisWeekOrderCount={thisWeekOrderCount} 
-                        thisMonthOrderCount={thisMonthOrderCount} todayOrderPercentage={todayOrderPercentage}
-                        thisWeekOrderPercentage={thisWeekOrderPercentage} thisMonthOrderPercentage={thisMonthOrderPercentage}
+          <DashboardTop
+            todayIncome={todayIncome}
+            thisWeekIncome={thisWeekIncome}
+            thisMonthIncome={thisMonthIncome}
+            todayOrderCount={todayOrderCount}
+            thisWeekOrderCount={thisWeekOrderCount}
+            thisMonthOrderCount={thisMonthOrderCount}
+            todayOrderPercentage={todayOrderPercentage}
+            thisWeekOrderPercentage={thisWeekOrderPercentage}
+            thisMonthOrderPercentage={thisMonthOrderPercentage}
           />
 
-
-
-          <DashboardBests itemSalesCount={itemSalesCount} cSalesCount={cSalesCount} customerCount={customerCount} cardInfo={cardInfo} itemSalesCountPercentage={itemSalesCountPercentage} />
+          <DashboardBests
+            itemSalesCount={itemSalesCount}
+            cSalesCount={cSalesCount}
+            customerCount={customerCount}
+            cardInfo={cardInfo}
+            itemSalesCountPercentage={itemSalesCountPercentage}
+          />
         </>
-
-    }
-
+      )}
     </section>
-  )
+  );
 }
 
-export default withAuth(DashboardPage)
+export default withAuth(DashboardPage);
