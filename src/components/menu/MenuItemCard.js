@@ -102,13 +102,6 @@ function MenuItemCard({ onAddToCard, ...item }) {
 
       <p className="text-gray-500 text-sm line-clamp-2 mt-8">{description}</p>
 
-      {/* <button
-          type="button"
-          className="absolute bottom-4 left-10 right-10 max-w-[120px] mx-auto bg-secondery text-white rounded-full p-2"
-          onClick={onAddToCard}
-        >
-          Add to cart
-        </button> */}
       <div className="lg:w-[80%] mx-auto mt-16">
         <ButtonPrimary onClick={onAddToCard} title="Add to cart" />
       </div>

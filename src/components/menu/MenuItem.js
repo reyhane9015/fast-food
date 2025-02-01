@@ -89,8 +89,10 @@ function MenuItem(menuItem) {
                 height={180}
                 className="block mx-auto"
               />
-              <h2 className="text-3xl font-bold text-center mb-4">{name}</h2>
-              <p className="text-center text-gray-500 text-xl mb-4">
+              <h2 className="text-xl md:text-3xl font-bold text-center mb-4">
+                {name}
+              </h2>
+              <p className="text-md md:text-xl text-center text-gray-500 mb-4">
                 {description}
               </p>
 
