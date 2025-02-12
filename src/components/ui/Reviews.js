@@ -8,7 +8,7 @@ function Reviews() {
       initial="offscreen"
       whileInView="onscreen"
       variants={btnVariants}
-      className="relative overflow-auto p-8"
+      className="relative p-8 flex flex-col items-center justify-center md:items-start"
     >
       <div className="opacity-60 font-sm pb-4">Reviews</div>
       <div className="flex -space-x-3 font-mono text-white text-sm font-bold leading-6">

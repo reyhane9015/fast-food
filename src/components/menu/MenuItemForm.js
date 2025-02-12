@@ -30,6 +30,8 @@ function MenuItemForm({ onSubmit, menuItem, category, setCategory }) {
         const selectedCategory = categories.find(
           (cat) => cat._id === menuItem.category
         );
+
+       
         if (selectedCategory) {
           setCategory(selectedCategory);
         }

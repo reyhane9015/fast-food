@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 function ButtonPrimary({ title, type = "button", onClick }) {
   return (
     <motion.button
-      whileHover={{ scale: 1.05 }}
+      whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.85 }}
       type={type}
       onClick={onClick}

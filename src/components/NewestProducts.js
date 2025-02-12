@@ -39,7 +39,9 @@ function NewestProducts() {
         </div>
       )}
 
-      {error && <div className="text-red-500">{error}</div>}
+      {error && (
+        <div className="text-red-500 font-bold text-center">{error}</div>
+      )}
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
         {newestProducts?.length > 0 &&
