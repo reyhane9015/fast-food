@@ -65,7 +65,7 @@ function Header() {
           <div className="w-[45px] h-[30px]">
             <Link className="text-primary font-semibold text-2xl" href="/">
               <Image
-                src="/fast-food-icons.png"
+                src="/assets/logo.webp"
                 width={"45"}
                 height={"30"}
                 alt="logo"
