@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Location from "@/components/icons/Location";
 import Phone from "@/components/icons/Phone";
+import Instagram from "@/components/icons/Instagram";
+import Twitter from "@/components/icons/Twitter";
 import SectionHeader from "@/components/ui/SectionHeader";
 import ContactForm from "@/components/ContactForm";
 import { motion } from "framer-motion";
@@ -36,21 +38,16 @@ export default function ContactUsPage() {
           </div>
 
           <div className="flex gap-6 items-center justify-start">
-            <Link href="/">
-              <Image
-                src="/instagram.svg"
-                width={30}
-                height={30}
-                alt="socails"
-              />
+            <Link href="/" alt="instagram">
+              <Instagram />
             </Link>
 
-            <Link href="/">
-              <Image src="/twitter.svg" width={30} height={30} alt="socails" />
+            <Link href="/" alt="twitter">
+              <Twitter />
             </Link>
 
-            <Link href="/">
-              <Image src="/facebook.svg" width={30} height={30} alt="socails" />
+            <Link href="/" alt="instagram">
+              <Instagram />
             </Link>
           </div>
         </div>

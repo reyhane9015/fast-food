@@ -15,7 +15,9 @@ function SectionHeader({ subHeader, mainHeader }) {
         <h3 className="uppercase text-gray-500 font-semibold text-2xl">
           {subHeader}
         </h3>
-        <h2 className="text-primary font-bold text-4xl">{mainHeader}</h2>
+        <h2 className="text-primary font-bold text-2xl md:text-4xl">
+          {mainHeader}
+        </h2>
       </motion.div>
     </>
   );

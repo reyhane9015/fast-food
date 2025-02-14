@@ -47,7 +47,7 @@ function SpecialOffer() {
           </motion.div>
 
           <Image
-            src="/Arrow-animation3.gif"
+            src="/assets/Arrow-animation3.gif"
             className="hidden lg:block absolute right-[100px] bottom-[20px]"
             width={150}
             height={250}
@@ -67,7 +67,12 @@ function SpecialOffer() {
             }}
             className="hidden lg:block absolute -right-[240px] -top-[12px]"
           >
-            <Image src="/plato.png" alt="offer" width={370} height={370} />
+            <Image
+              src="/assets/plato.webp"
+              alt="offer"
+              width={370}
+              height={370}
+            />
           </motion.div>
         </div>
       </div>

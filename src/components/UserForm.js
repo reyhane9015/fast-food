@@ -128,7 +128,7 @@ function UserForm({ user, onSave, isEditable = true }) {
           <div className="block mx-auto w-16 h-16">
             <Image
               className="rounded-full border-2 border-primary shadow-sm"
-              src="/profile.png"
+              src="/assets/profile.webp"
               width={120}
               height={120}
               alt="profile"

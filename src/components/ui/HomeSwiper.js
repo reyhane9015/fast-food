@@ -18,13 +18,18 @@ function HomeSwiper() {
       className="mySwiper"
     >
       <SwiperSlide className="flex justify-center items-center">
-        <Image src="/Food.png" width={500} height={500} alt="pizza" />
+        <Image
+          src="/assets/peperoni.webp"
+          width={450}
+          height={450}
+          alt="pizza"
+        />
       </SwiperSlide>
       <SwiperSlide>
-        <Image src="/plato.png" width={450} height={450} alt="pizza" />
+        <Image src="/assets/plato.webp" width={480} height={480} alt="pizza" />
       </SwiperSlide>
       <SwiperSlide>
-        <Image src="/pizza.png" width={400} height={400} alt="pizza" />
+        <Image src="/assets/pizza.webp" width={440} height={440} alt="pizza" />
       </SwiperSlide>
     </Swiper>
   );

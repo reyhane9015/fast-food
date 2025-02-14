@@ -23,7 +23,12 @@ function WeekOffer() {
             }}
             className="hidden lg:block"
           >
-            <Image src="/WeekOffer.png" alt="offer" width={370} height={370} />
+            <Image
+              src="/assets/WeekOffer.webp"
+              alt="offer"
+              width={370}
+              height={370}
+            />
           </motion.div>
 
           <motion.div

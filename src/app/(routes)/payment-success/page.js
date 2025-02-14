@@ -44,7 +44,7 @@ export default function PaymentSuccessPage() {
         <div className="relative z-40">
           <div className="flex gap-2 items-center justify-center pt-36 text-light-text dark:text-dark-text">
             <Image
-              src="/successful-animation.gif"
+              src="/assets/successful-animation.gif"
               width={100}
               height={100}
               alt="successful-animation"

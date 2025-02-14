@@ -83,7 +83,7 @@ function MenuItem(menuItem) {
               style={{ maxHeight: "calc(100vh - 40px)" }}
             >
               <Image
-                src="/pizza.png"
+                src="/assets/pizza.webp"
                 alt="pizza"
                 width={180}
                 height={180}

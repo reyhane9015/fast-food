@@ -34,7 +34,12 @@ function DashboardBests({
               className="flex items-center justify-between my-4"
             >
               <div className="flex gap-2 items-center text-gray-600 dark:text-gray-300">
-                <Image src="/pizza.png" width={40} height={40} alt="pizza" />
+                <Image
+                  src="/assets/pizza.webp"
+                  width={40}
+                  height={40}
+                  alt="pizza"
+                />
                 <span>{itemName}</span>
               </div>
               <div className="bg-third p-2 rounded-lg text-white font-semibold">
@@ -70,7 +75,7 @@ function DashboardBests({
                 >
                   <div className="flex gap-2 items-center text-gray-600 dark:text-gray-300">
                     <Image
-                      src="/profile.png"
+                      src="/assets/profile.webp"
                       width={30}
                       height={30}
                       alt="profile"
@@ -118,7 +123,7 @@ function DashboardBests({
                   <div className="flex gap-2 items-center text-gray-600 dark:text-gray-300">
                     {country === "iran" ? (
                       <Image
-                        src="/iran.jpg"
+                        src="/assets/iran.webp"
                         width={30}
                         height={30}
                         alt="flag"
@@ -126,7 +131,7 @@ function DashboardBests({
                       />
                     ) : (
                       <Image
-                        src="/turkye.jpg"
+                        src="/assets/turkye.webp"
                         width={30}
                         height={30}
                         alt="flag"

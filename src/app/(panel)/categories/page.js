@@ -159,7 +159,7 @@ function CategoriesPage() {
                 >
                   <div className="flex items-center gap-2">
                     <Image
-                      src="/pizza.png"
+                      src="/assets/pizza.webp"
                       alt="pizza"
                       width={60}
                       height={60}

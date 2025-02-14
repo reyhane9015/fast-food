@@ -21,7 +21,7 @@ function Chefs() {
           className="group border shadow-lg rounded-md border-none flex flex-col items-center justify-end h-[300px] md:h-[350px] bg-secondery cursor-pointer overflow-hidden"
         >
           <Image
-            src="/chef1.png"
+            src="/assets/chef3.webp"
             width={200}
             height={100}
             alt="chef1"
@@ -44,7 +44,7 @@ function Chefs() {
           className="group border shadow-lg rounded-md border-none flex flex-col items-center justify-end h-[300px] md:h-[350px] bg-secondery cursor-pointer overflow-hidden md:mt-12"
         >
           <Image
-            src="/chef2.png"
+            src="/assets/chef2.webp"
             width={200}
             height={100}
             alt="chef2"
@@ -67,7 +67,7 @@ function Chefs() {
           className="group border shadow-lg rounded-md border-none flex flex-col items-center justify-end h-[300px] md:h-[350px] bg-secondery cursor-pointer overflow-hidden"
         >
           <Image
-            src="/chef3.png"
+            src="/assets/chef3.webp"
             width={200}
             height={100}
             alt="chef3"

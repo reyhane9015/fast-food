@@ -10,7 +10,7 @@ function HeaderMobile() {
 
   return (
     <div className="fixed bottom-0 left-0 w-full md:hidden py-4 bg-white dark:bg-dark-SBackground shadow-lg z-50">
-      <div className="max-w-6xl mx-auto text-sm flex items-center justify-between px-4 sm:px-6 lg:px-12">
+      <div className="max-w-6xl mx-auto text-sm flex items-center justify-between px-6">
         <LinkHeader href="/" title="Home" />
         <LinkHeader href="/menu" title="Menu" />
         <LinkHeader href="/about-us" title="About Us" />

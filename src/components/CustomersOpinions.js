@@ -23,7 +23,7 @@ function CustomersOpinions() {
               width={50}
               height={50}
               className="rounded-full ring-2 ring-primary"
-              src="/customer1.jpg"
+              src="/assets/customer1.webp"
               alt="customer"
             />
             <div className="text-sm">
@@ -62,7 +62,7 @@ function CustomersOpinions() {
               width={50}
               height={50}
               className="rounded-full ring-2 ring-primary"
-              src="/customer2.jpg"
+              src="/assets/customer2.webp"
               alt="customer"
             />
             <div className="text-sm">
@@ -100,7 +100,7 @@ function CustomersOpinions() {
               width={50}
               height={50}
               className="rounded-full ring-2 ring-primary"
-              src="/customer3.jpg"
+              src="/assets/customer3.webp"
               alt="customer"
             />
             <div className="text-sm">
@@ -143,7 +143,7 @@ function CustomersOpinions() {
               width={50}
               height={50}
               className="rounded-full ring-2 ring-primary"
-              src="/customer4.jpg"
+              src="/assets/customer4.webp"
               alt="customer"
             />
             <div className="text-sm">
@@ -180,7 +180,7 @@ function CustomersOpinions() {
               width={50}
               height={50}
               className="rounded-full ring-2 ring-primary"
-              src="/customer5.jpg"
+              src="/assets/customer5.webp"
               alt="customer"
             />
             <div className="text-sm">

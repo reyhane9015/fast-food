@@ -94,7 +94,7 @@ function Header() {
                   <div className="w-12 h-12">
                     <Image
                       className="rounded-full border-2 border-primary shadow-sm"
-                      src="/profile.png"
+                      src="/assets/profile.webp"
                       width={120}
                       height={120}
                       alt="profile"
@@ -115,8 +115,12 @@ function Header() {
 
             {status === "unauthenticated" && (
               <div className="hidden md:flex gap-2">
-                <LinkPrimary href="/login" title="Login" />
-                <LinkSecondery href="/register" title="Register" />
+                <LinkPrimary className="flex-1" href="/login" title="Login" />
+                <LinkSecondery
+                  className="flex-1"
+                  href="/register"
+                  title="Register"
+                />
               </div>
             )}
 

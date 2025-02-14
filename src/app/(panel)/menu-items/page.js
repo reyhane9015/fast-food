@@ -49,7 +49,7 @@ function MenuItemsPage() {
                   className="text-light-text dark:text-dark-text dark:bg-dark-SBackground relative flex flex-col gap-6 items-center border-2 border-primary p-4 rounded-xl mb-2"
                 >
                   <Image
-                    src="/pizza.png"
+                    src="/assets/pizza.webp"
                     alt="pizza"
                     width={80}
                     height={80}

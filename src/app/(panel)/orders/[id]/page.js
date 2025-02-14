@@ -101,7 +101,7 @@ function OrderPage() {
     if (category?.name === "cat1") {
       return (
         <Image
-          src="/plato.png"
+          src="/assets/plato.webp"
           key={category?._id}
           alt={category?.name}
           width={80}
@@ -112,7 +112,7 @@ function OrderPage() {
     } else if (category?.name === "cat2") {
       return (
         <Image
-          src="/food2.png"
+          src="/assets/food2.webp"
           key={category?._id}
           alt={category?.name}
           width={80}
@@ -123,7 +123,7 @@ function OrderPage() {
     } else {
       return (
         <Image
-          src="/food3.png"
+          src="/assets/food3.webp"
           key={category?._id}
           alt={category?.name}
           width={80}
@@ -155,7 +155,7 @@ function OrderPage() {
 
           <div>
             {order && (
-              <div className="">
+              <div>
                 <div className="text-gray-500 mb-4 text-xl font-semibold">
                   user: {order.userEmail}
                 </div>
@@ -201,14 +201,14 @@ function OrderPage() {
                                   key={`${p._id} + ${index}`}
                                   className="font-semibold text-center text-gray-500 dark:text-dark-text border-dashed border-b-2 border-b-gray-300"
                                 >
-                                  <td className="">{index + 1}</td>
+                                  <td>{index + 1}</td>
                                   <td className="py-4">
                                     {getCategoryImage(p.category)}
                                   </td>
-                                  <td className="">{p.name}</td>
-                                  <td className="">{p.quantity}</td>
+                                  <td>{p.name}</td>
+                                  <td>{p.quantity}</td>
 
-                                  <td className="">
+                                  <td>
                                     {p.size && (
                                       <div>
                                         <span className="whitespace-nowrap text-sm">
@@ -222,7 +222,7 @@ function OrderPage() {
                                     )}
                                   </td>
 
-                                  <td className="">
+                                  <td>
                                     {p.extras && p.extras.length > 0 ? (
                                       <div>
                                         {p.extras.map((ex, index) => (
@@ -232,11 +232,11 @@ function OrderPage() {
                                         ))}
                                       </div>
                                     ) : (
-                                      <div className="">.................</div>
+                                      <div>.................</div>
                                     )}
                                   </td>
 
-                                  <td className="">{cartProductPrice(p)}$</td>
+                                  <td>{cartProductPrice(p)}$</td>
 
                                   <td className="text-sm">
                                     {dbTimeForHuman(order.createdAt)}
@@ -249,7 +249,7 @@ function OrderPage() {
                     </div>
                   </div>
 
-                  <div className="text-right font-semibold p-8 text-2xl text-primary">
+                  <div className="text-right font-semibold p-8 md:text-2xl text-primary">
                     Total Price(products + delivery): {order.totalPrice + 10}$
                   </div>
                 </div>
@@ -260,19 +260,19 @@ function OrderPage() {
                       Card Information:
                     </p>
                     {order.cardInfo && (
-                      <div className="">
+                      <div>
                         <div className="text-center mb-4 font-semibold text-lg text-gray-500">
-                          <p className="">Card Number</p>
+                          <p>Card Number</p>
                           <p>{order.cardInfo.cardNumber}</p>
                         </div>
 
                         <div className="flex px-4 justify-between font-semibold text-lg text-gray-500">
                           <p className="flex gap-2 items-center justify-between font-semibold text-lg text-gray-500">
-                            <span className="">Card Expiry Date:</span>
+                            <span>Card Expiry Date:</span>
                             <span>{order.cardInfo.expiryDate}</span>
                           </p>
                           <p className="flex gap-2 items-center justify-between font-semibold text-lg text-gray-500">
-                            <span className="">Cvv:</span>
+                            <span>Cvv:</span>
                             <span>{order.cardInfo.cvv}</span>
                           </p>
                         </div>

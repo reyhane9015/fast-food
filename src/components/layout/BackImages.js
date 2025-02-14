@@ -3,7 +3,7 @@ import Image from "next/image";
 function BackImages() {
   return (
     <Image
-      src="/hero.svg"
+      src="/assets/hero.svg"
       alt="hero"
       width={"1180"}
       height={"900"}

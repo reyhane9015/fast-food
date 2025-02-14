@@ -2,11 +2,7 @@
 
 import Reviews from "./ui/Reviews";
 import { motion } from "framer-motion";
-import {
-  headerVariants,
-  descVariants,
-  btnVariants,
-} from "./../utils/animation";
+import { headerVariants, descVariants } from "./../utils/animation";
 import LinkPrimary from "./ui/LinkPrimary";
 import LinkSecondery from "./ui/LinkSecondery";
 import HomeSwiper from "./ui/HomeSwiper";
@@ -15,7 +11,7 @@ function Hero() {
   return (
     <section>
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 md:my-18 text-left pt-24 md:pt-36">
-        <div className="p-4 md:p-12 z-40">
+        <div className="flex flex-col gap-12 p-4 md:p-12 z-40">
           <motion.h1
             initial="offscreen"
             whileInView="onscreen"
@@ -28,7 +24,7 @@ function Hero() {
             initial="offscreen"
             whileInView="onscreen"
             variants={descVariants}
-            className="my-12 text-gray-500 text-xl md:text-2xl text-left"
+            className="text-gray-500 text-xl md:text-2xl text-left"
           >
             Pizza is the missing piece that makes every day complete, a simple
             yet delicious joy in life every day complete, a simple yet delicious
@@ -36,8 +32,13 @@ function Hero() {
           </motion.p>
 
           <div className="flex items-center justify-center md:justify-start gap-2">
-            <LinkPrimary href="/menu" title="Order Now" />
-            <LinkSecondery href="/about-us" title="Learn More" />
+            <LinkPrimary className="flex-1" href="/menu" title="Order Now" />
+
+            <LinkSecondery
+              className="flex-1"
+              href="/about-us"
+              title="Learn More"
+            />
           </div>
 
           <Reviews />

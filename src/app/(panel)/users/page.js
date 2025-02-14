@@ -110,7 +110,7 @@ function UsersPage() {
                                 <div className="flex-shrink-0 w-10 h-10">
                                   <Image
                                     className="w-full h-full rounded-full"
-                                    src="/profile.png"
+                                    src="/assets/profile.webp"
                                     alt="profile"
                                     width={500}
                                     height={500}

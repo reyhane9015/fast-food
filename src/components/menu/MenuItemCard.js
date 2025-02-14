@@ -56,7 +56,7 @@ function MenuItemCard({ onAddToCard, ...item }) {
               case "cat1":
                 return (
                   <Image
-                    src="/plato.png"
+                    src="/assets/plato.webp"
                     key={cat._id}
                     alt={name}
                     width={150}
@@ -67,7 +67,7 @@ function MenuItemCard({ onAddToCard, ...item }) {
               case "cat2":
                 return (
                   <Image
-                    src="/food2.png"
+                    src="/assets/food2.webp"
                     key={cat._id}
                     alt={name}
                     width={150}
@@ -78,7 +78,7 @@ function MenuItemCard({ onAddToCard, ...item }) {
               default:
                 return (
                   <Image
-                    src="/food3.png"
+                    src="/assets/food3.webp"
                     key={cat._id}
                     alt={name}
                     width={150}

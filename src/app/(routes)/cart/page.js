@@ -178,7 +178,7 @@ export default function CartPage() {
 
                               <td className="py-4 text-light-text dark:text-dark-text text-center">
                                 <Image
-                                  src="/pizza.png"
+                                  src="/assets/pizza.webp"
                                   alt="pizza"
                                   width={60}
                                   height={60}
